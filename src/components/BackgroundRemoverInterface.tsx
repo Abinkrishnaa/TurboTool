@@ -43,11 +43,11 @@ export default function BackgroundRemoverInterface() {
       // 1. Mobile Optimization: Pre-scale image if it's too large to save WebGL memory
       let fileToProcess = selectedFile;
       
-      // Optimization thresholds
-      const MAX_SIZE_MB = isRetry ? 0.8 : 1.5;
-      const MAX_DIM = isRetry ? 1024 : 1600;
+      // Higher mobile safety: Lower initial and retry thresholds
+      const MAX_SIZE_MB = isRetry ? 0.4 : 0.8;
+      const MAX_DIM = isRetry ? 800 : 1200;
       
-      if (selectedFile.size > 0.5 * 1024 * 1024 || isRetry) { 
+      if (selectedFile.size > 0.2 * 1024 * 1024 || isRetry) { 
         const options = {
           maxSizeMB: MAX_SIZE_MB,
           maxWidthOrHeight: MAX_DIM,
@@ -55,7 +55,7 @@ export default function BackgroundRemoverInterface() {
         };
         try {
           fileToProcess = await imageCompression(selectedFile, options);
-          console.log(`Image optimized (${MAX_DIM}px) for ${isRetry ? 'retry' : 'safety'}`);
+          console.log(`Image aggressively optimized (${MAX_DIM}px) for ${isRetry ? 'retry' : 'safety'}`);
         } catch (compressionError) {
           console.warn("Compression failed, trying current file:", compressionError);
         }

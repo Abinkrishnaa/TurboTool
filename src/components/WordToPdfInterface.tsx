@@ -171,7 +171,7 @@ export default function WordToPdfInterface() {
           <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
             <FileCode className="w-8 h-8 text-slate-400" />
           </div>
-          <h3 className="text-xl font-bold text-[#111] mb-2">Upload your Word Document</h3>
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Upload your Word Document</h3>
           <p className="text-sm text-slate-500 mb-8 max-w-xs mx-auto">
             Drag and drop your DOCX file here. Files are processed locally for maximum privacy.
           </p>
@@ -189,8 +189,8 @@ export default function WordToPdfInterface() {
               <div className="w-12 h-12 bg-white rounded-lg border border-slate-200 flex items-center justify-center">
                 <FileCode className="w-6 h-6 text-slate-900" />
               </div>
-              <div>
-                <h4 className="text-sm font-bold text-[#111] truncate max-w-[240px]">{file.name}</h4>
+              <div className="min-w-0 flex-1">
+                <h4 className="text-sm font-bold text-slate-900 dark:text-white truncate pr-2">{file.name}</h4>
                 <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">
                   {(file.size / 1024 / 1024).toFixed(2)} MB • READY
                 </p>
@@ -259,13 +259,13 @@ export default function WordToPdfInterface() {
           <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6">
             <Zap className="w-10 h-10 text-green-600" />
           </div>
-          <h3 className="text-2xl font-bold text-[#111] mb-2">Word to PDF Ready!</h3>
+          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Word to PDF Ready!</h3>
           <p className="text-sm text-slate-500 mb-8">Securely converted in your browser.</p>
           
           <div className="flex flex-col gap-4">
             <button 
               onClick={handleDownload}
-              className="w-full py-4 bg-[#111] text-white rounded-xl text-sm font-bold flex items-center justify-center gap-3 hover:bg-slate-800 transition-all active:scale-[0.98]"
+              className="w-full py-4 bg-orange-600 text-white rounded-xl text-sm font-bold flex items-center justify-center gap-3 hover:bg-orange-700 transition-all active:scale-[0.98] shadow-lg shadow-orange-600/20"
             >
               <Download className="w-4 h-4" />
               Download PDF Document

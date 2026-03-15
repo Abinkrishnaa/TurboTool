@@ -149,7 +149,7 @@ export default function ImageCompressorInterface() {
                         <input 
                           type="number" step="0.1" min="0.01" value={targetSizeMB}
                           onChange={(e) => setTargetSizeMB(parseFloat(e.target.value) || 0.1)}
-                          className="w-12 bg-transparent text-[#111] dark:text-white font-bold text-right focus:outline-none text-sm"
+                          className="w-full bg-transparent text-[#111] dark:text-white font-bold text-right focus:outline-none text-sm"
                         />
                         <span className="text-[10px] font-bold text-slate-400">MB</span>
                       </div>
@@ -174,9 +174,12 @@ export default function ImageCompressorInterface() {
 
                 <div className="space-y-4 pt-4">
                   {status === "idle" && (
-                    <button onClick={() => compressImage(selectedFile, targetSizeMB, compressionValue)} className="w-full py-4 bg-[#111] dark:bg-white text-white dark:text-[#111] rounded-lg font-bold text-sm shadow-sm hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-3">
-                      <Zap className="w-4 h-4" />
-                      <span>Process Image</span>
+                    <button 
+                      onClick={() => compressImage(selectedFile, targetSizeMB, compressionValue)} 
+                      className="w-full py-5 bg-primary text-white rounded-2xl font-black text-lg shadow-xl shadow-primary/20 hover:bg-primary-dark hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3 mt-4"
+                    >
+                      <Zap className="w-5 h-5" />
+                      <span>Compress Image Now</span>
                     </button>
                   )}
 

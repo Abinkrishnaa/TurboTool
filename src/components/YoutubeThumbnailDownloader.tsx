@@ -52,15 +52,22 @@ export default function YoutubeThumbnailDownloader() {
       const link = document.createElement('a');
       link.href = blobUrl;
       link.download = `youtube-thumbnail-${videoId}-${quality}.jpg`;
+      link.style.display = 'none';
       document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(blobUrl);
+      
+      // Safety for iOS: Wait a bit before cleanup
+      setTimeout(() => {
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(blobUrl);
+      }, 100);
     } catch (err) {
       console.error("Download failed", err);
       // Fallback: Open in new tab if blob fetch fails (usually CORS)
-      window.open(imageUrl, '_blank');
-      setError("Direct download blocked by browser. Please right-click and save the image in the new tab.");
+      const win = window.open(imageUrl, '_blank');
+      if (!win) {
+        setError("Download blocked. Please long-press the thumbnail below to save.");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -137,29 +144,29 @@ export default function YoutubeThumbnailDownloader() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <button 
-                onClick={() => downloadImage('maxresdefault')}
-                className="flex items-center justify-between p-6 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl group hover:border-[#111] dark:hover:border-white transition-all shadow-sm active:scale-[0.98]"
-              >
-                <div className="text-left">
-                  <span className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1 leading-none">High Resolution</span>
-                  <span className="text-lg font-black text-[#111] dark:text-white">4K / 1080p</span>
-                </div>
-                <div className="w-12 h-12 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center group-hover:bg-[#111] dark:group-hover:bg-white group-hover:text-white dark:group-hover:text-[#111] transition-all">
-                  <Download className="w-5 h-5" />
-                </div>
-              </button>
+                <div className="grid grid-cols-1 gap-4 sm:gap-6">
+                  <button 
+                    onClick={() => downloadImage('maxresdefault')}
+                    className="flex items-center justify-between p-4 sm:p-6 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl group hover:border-[#111] dark:hover:border-white transition-all shadow-sm active:scale-[0.98]"
+                  >
+                    <div className="text-left min-w-0">
+                      <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 leading-none">High Resolution</span>
+                      <span className="text-base sm:text-lg font-black text-slate-900 dark:text-white">4K / 1080p</span>
+                    </div>
+                    <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-slate-700 flex items-center justify-center group-hover:bg-[#111] dark:group-hover:bg-white group-hover:text-white dark:group-hover:text-slate-900 transition-all">
+                      <Download className="w-5 h-5" />
+                    </div>
+                  </button>
 
               <button 
                 onClick={() => downloadImage('hqdefault')}
-                className="flex items-center justify-between p-6 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl group hover:border-[#111] dark:hover:border-white transition-all shadow-sm active:scale-[0.98]"
+                className="flex items-center justify-between p-4 sm:p-6 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl group hover:border-[#111] dark:hover:border-white transition-all shadow-sm active:scale-[0.98]"
               >
-                <div className="text-left">
-                  <span className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1 leading-none">Standard Quality</span>
-                  <span className="text-lg font-black text-[#111] dark:text-white">HD (High Def)</span>
+                <div className="text-left min-w-0">
+                  <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 leading-none">Standard Quality</span>
+                  <span className="text-base sm:text-lg font-black text-slate-900 dark:text-white">HD (High Def)</span>
                 </div>
-                <div className="w-12 h-12 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center group-hover:bg-[#111] dark:group-hover:bg-white group-hover:text-white dark:group-hover:text-[#111] transition-all">
+                <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-slate-700 flex items-center justify-center group-hover:bg-[#111] dark:group-hover:bg-white group-hover:text-white dark:group-hover:text-slate-900 transition-all">
                   <Download className="w-5 h-5" />
                 </div>
               </button>

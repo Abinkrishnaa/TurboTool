@@ -132,7 +132,7 @@ export default function PasswordGeneratorPage() {
                 type="text" 
                 readOnly 
                 value={password}
-                className="flex-grow bg-transparent border-none focus:outline-none text-2xl font-mono text-center sm:text-left text-slate-900 dark:text-white"
+                className="flex-grow bg-transparent border-none focus:outline-none text-xl sm:text-2xl font-mono text-center sm:text-left text-slate-900 dark:text-white"
               />
               <div className="flex items-center gap-2">
                 <button 
@@ -152,15 +152,15 @@ export default function PasswordGeneratorPage() {
             </div>
           </div>
           
-          <div className="mt-6 flex items-center justify-between px-2">
+          <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 px-2">
             <div className="flex items-center gap-2">
               <ShieldCheck className={`w-4 h-4 ${strength.color === "bg-emerald-500" ? "text-emerald-500" : "text-slate-400"}`} />
               <span className="text-xs font-bold uppercase tracking-widest text-slate-400">Strength: </span>
               <span className={`text-xs font-black uppercase tracking-widest ${strength.color.replace('bg-', 'text-')}`}>{strength.label}</span>
             </div>
-            <div className="flex gap-1">
+            <div className="flex gap-1.5 flex-wrap justify-center">
               {[1, 2, 3, 4, 5].map((i) => (
-                <div key={i} className={`h-1.5 w-6 rounded-full transition-all duration-500 ${i <= strength.score ? strength.color : "bg-slate-100 dark:bg-slate-800"}`} />
+                <div key={i} className={`h-1.5 w-8 rounded-full transition-all duration-500 ${i <= strength.score ? strength.color : "bg-slate-100 dark:bg-slate-800"}`} />
               ))}
             </div>
           </div>
@@ -236,8 +236,8 @@ function OptionToggle({ label, active, onClick }: { label: string, active: boole
           : "bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-800 text-slate-400"
       }`}
     >
-      <span className="text-xs font-black uppercase tracking-widest">{label}</span>
-      <div className={`w-5 h-5 rounded-md flex items-center justify-center transition-all ${active ? "bg-primary text-white" : "bg-slate-200 dark:bg-slate-700"}`}>
+      <span className="text-[10px] sm:text-xs font-black uppercase tracking-widest truncate mr-2">{label}</span>
+      <div className={`w-5 h-5 rounded-md flex-shrink-0 flex items-center justify-center transition-all ${active ? "bg-primary text-white" : "bg-slate-200 dark:bg-slate-700"}`}>
         {active && <CheckCircle className="w-3.5 h-3.5" />}
       </div>
     </button>

@@ -145,6 +145,21 @@ export default function ImageCropperInterface() {
                     window.addEventListener("mousemove", onMouseMove);
                     window.addEventListener("mouseup", onMouseUp);
                   }}
+                  onTouchStart={(e) => {
+                    const touch = e.touches[0];
+                    const startX = touch.clientX - offset.x;
+                    const startY = touch.clientY - offset.y;
+                    const onTouchMove = (moveEvent: TouchEvent) => {
+                      const t = moveEvent.touches[0];
+                      setOffset({ x: t.clientX - startX, y: t.clientY - startY });
+                    };
+                    const onTouchEnd = () => {
+                      window.removeEventListener("touchmove", onTouchMove);
+                      window.removeEventListener("touchend", onTouchEnd);
+                    };
+                    window.addEventListener("touchmove", onTouchMove, { passive: false });
+                    window.addEventListener("touchend", onTouchEnd);
+                  }}
                 >
                   {previewUrl && (
                     <img 
@@ -163,7 +178,7 @@ export default function ImageCropperInterface() {
                   {/* Aspect Ratio Overlay */}
                   <div className="absolute inset-0 border-2 border-white/50 border-dashed pointer-events-none" />
                   
-                  <button onClick={() => setSelectedFile(null)} className="absolute top-4 right-4 p-2 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-xl text-slate-500 hover:text-red-500 transition-colors shadow-lg">
+                  <button onClick={() => setSelectedFile(null)} className="absolute top-4 right-4 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-xl text-slate-500 hover:text-red-500 transition-colors shadow-lg z-10">
                     <X className="w-5 h-5" />
                   </button>
                 </div>
@@ -203,9 +218,9 @@ export default function ImageCropperInterface() {
                   <button 
                     onClick={handleExport} 
                     disabled={isProcessing}
-                    className="w-full py-5 bg-primary text-white rounded-2xl font-black text-xl shadow-xl shadow-primary/20 hover:bg-primary-dark hover:scale-[1.02] transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+                    className="w-full py-5 bg-primary text-white rounded-3xl font-black text-lg sm:text-xl shadow-xl shadow-primary/20 hover:bg-primary-dark hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
                   >
-                    {isProcessing ? <RefreshCw className="animate-spin" /> : <Download />}
+                    {isProcessing ? <RefreshCw className="animate-spin w-6 h-6" /> : <Download className="w-6 h-6" />}
                     {isProcessing ? "Processing..." : "Download Cropped Image"}
                   </button>
                   <p className="text-xs text-slate-400 mt-4 text-center italic">Tip: Use the slider to zoom and drag the image to frame your subject perfectly.</p>

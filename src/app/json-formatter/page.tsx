@@ -87,7 +87,7 @@ export default function JsonFormatterPage() {
                 <button onClick={() => setInput("")} className="text-xs font-bold text-slate-400 hover:text-red-500 transition-colors uppercase tracking-widest">Clear</button>
               </div>
               <textarea
-                className="w-full h-[400px] p-6 bg-transparent border-none focus:outline-none text-sm text-slate-600 dark:text-slate-400 font-mono resize-none leading-relaxed"
+                className="w-full h-[300px] lg:h-[400px] p-6 bg-transparent border-none focus:outline-none text-sm text-slate-800 dark:text-slate-200 font-mono resize-none leading-relaxed"
                 placeholder="Paste your messy JSON here..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -108,10 +108,10 @@ export default function JsonFormatterPage() {
                   </button>
                 )}
               </div>
-              <div className="relative flex-grow h-[400px]">
+              <div className="relative flex-grow h-[300px] lg:h-[400px]">
                 <textarea
                   readOnly
-                  className="w-full h-full p-6 bg-slate-50/50 dark:bg-slate-900/50 border-none focus:outline-none text-sm text-emerald-600 dark:text-emerald-400 font-mono resize-none leading-relaxed"
+                  className="w-full h-full p-6 bg-slate-50/50 dark:bg-white/5 border-none focus:outline-none text-sm text-emerald-700 dark:text-emerald-400 font-mono resize-none leading-relaxed overflow-x-auto whitespace-pre"
                   placeholder="Formatted JSON will appear here..."
                   value={output}
                 />
