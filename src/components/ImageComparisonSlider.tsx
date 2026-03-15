@@ -39,7 +39,7 @@ export default function ImageComparisonSlider({
   return (
     <div 
       ref={containerRef}
-      className="relative aspect-video rounded-[2.5rem] overflow-hidden bg-slate-100 dark:bg-slate-800 border border-white/50 dark:border-white/5 shadow-2xl cursor-col-resize select-none group"
+      className="relative min-h-[300px] sm:min-h-[400px] h-auto aspect-video rounded-3xl sm:rounded-[2.5rem] overflow-hidden bg-slate-100 dark:bg-slate-800 border border-white/50 dark:border-white/5 shadow-2xl cursor-col-resize select-none group"
       onMouseMove={handleMove}
       onTouchMove={handleMove}
     >
@@ -85,15 +85,15 @@ export default function ImageComparisonSlider({
       )}
 
       {/* Labels */}
-      <div className="absolute top-6 left-6 px-4 py-2 glass rounded-full text-[10px] font-black uppercase tracking-widest text-[#111] dark:text-white pointer-events-none z-10">
+      <div className="absolute top-4 sm:top-6 left-4 sm:left-6 px-3 sm:px-4 py-1.5 sm:py-2 glass rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-[#111] dark:text-white pointer-events-none z-10">
          {beforeLabel}
       </div>
       
       {afterUrl !== beforeUrl && (
-        <div className="absolute top-6 right-20 px-4 py-2 glass rounded-full text-[10px] font-black uppercase tracking-widest text-[#111] dark:text-white pointer-events-none z-10">
+        <div className="absolute top-4 sm:top-6 right-16 sm:right-20 px-3 sm:px-4 py-1.5 sm:py-2 glass rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-[#111] dark:text-white pointer-events-none z-10">
            <div className="flex items-center gap-1.5">
               <Sparkles className="w-3 h-3 text-yellow-500" />
-              <span>{afterLabel}</span>
+              <span className="truncate max-w-[80px] sm:max-w-none">{afterLabel}</span>
            </div>
         </div>
       )}

@@ -34,12 +34,15 @@ export default function ImageCompressorInterface() {
     setStatus("compressing");
     setProgress(10);
 
+    // Guard: If original is already smaller than target, use high quality (no compression)
+    const isSmallerThanTarget = fileToCompress.size / (1024 * 1024) <= target;
+    
     const options = {
       maxSizeMB: target,
       maxWidthOrHeight: 1920,
       useWebWorker: true,
       onProgress: (p: number) => setProgress(p),
-      initialQuality: quality,
+      initialQuality: isSmallerThanTarget ? 0.95 : quality, // Don't compress if already small
     };
 
     try {

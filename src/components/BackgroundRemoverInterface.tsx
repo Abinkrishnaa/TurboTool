@@ -43,11 +43,31 @@ export default function BackgroundRemoverInterface() {
       // 1. Mobile Optimization: Pre-scale image if it's too large to save WebGL memory
       let fileToProcess = selectedFile;
       
-      // Higher mobile safety: Lower initial and retry thresholds
-      const MAX_SIZE_MB = isRetry ? 0.4 : 0.8;
-      const MAX_DIM = isRetry ? 800 : 1200;
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      const isMobile = isIOS || /Android/i.test(navigator.userAgent);
+
+      // Multi-stage limits: Proactive for mobile, Aggressive for retries
+      let MAX_SIZE_MB = 1.2;
+      let MAX_DIM = 1600;
+
+      if (isIOS) {
+        MAX_SIZE_MB = 0.6;
+        MAX_DIM = 1000;
+      } else if (isMobile) {
+        MAX_SIZE_MB = 0.8;
+        MAX_DIM = 1200;
+      }
+
+      // Stage fallbacks based on retry count
+      if (retryCount === 1) {
+        MAX_SIZE_MB = 0.4;
+        MAX_DIM = 800;
+      } else if (retryCount >= 2) {
+        MAX_SIZE_MB = 0.2;
+        MAX_DIM = 640; // Total safety fallback
+      }
       
-      if (selectedFile.size > 0.2 * 1024 * 1024 || isRetry) { 
+      if (selectedFile.size > 0.2 * 1024 * 1024 || isMobile || retryCount > 0) { 
         const options = {
           maxSizeMB: MAX_SIZE_MB,
           maxWidthOrHeight: MAX_DIM,
@@ -55,7 +75,7 @@ export default function BackgroundRemoverInterface() {
         };
         try {
           fileToProcess = await imageCompression(selectedFile, options);
-          console.log(`Image aggressively optimized (${MAX_DIM}px) for ${isRetry ? 'retry' : 'safety'}`);
+          console.log(`Image level ${retryCount} optimization (${MAX_DIM}px) applied`);
         } catch (compressionError) {
           console.warn("Compression failed, trying current file:", compressionError);
         }
@@ -79,10 +99,10 @@ export default function BackgroundRemoverInterface() {
       
       const isMemoryError = err.message?.includes("WebGL") || err.message?.includes("memory") || err.message?.includes("out of memory");
       
-      if (isMemoryError && !isRetry) {
-        console.log("Memory limit reached. Initiating auto-recovery...");
-        setRetryCount(1);
-        removeBackground(true); // Recursive retry with aggressive downscaling
+      if (isMemoryError && retryCount < 2) {
+        console.log(`Memory limit reached. Initiating fallback level ${retryCount + 1}...`);
+        setRetryCount(prev => prev + 1);
+        removeBackground(true); 
         return;
       }
 
