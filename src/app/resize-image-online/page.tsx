@@ -82,11 +82,11 @@ function ImageResizerContent() {
   };
 
   const resizeImage = () => {
-    if (!selectedFile || !canvasRef.current) return;
+    if (!selectedFile || !canvasRef.current || !previewUrl) return;
     setStatus("processing");
 
     const img = new Image();
-    img.src = URL.createObjectURL(selectedFile);
+    img.src = previewUrl; // Use already existing preview URL
     img.onload = () => {
       const canvas = canvasRef.current!;
       canvas.width = dimensions.width;
@@ -100,19 +100,20 @@ function ImageResizerContent() {
           setResizedFile(file);
           setStatus("done");
         }
-      }, selectedFile.type);
+      }, selectedFile.type, 0.95); // High quality
     };
   };
 
   const downloadImage = () => {
-    if (!canvasRef.current) return;
-    const url = canvasRef.current.toDataURL(selectedFile?.type || "image/png");
+    if (!resizedFile) return;
+    const url = URL.createObjectURL(resizedFile);
     const link = document.createElement("a");
     link.href = url;
     link.download = `resized-${selectedFile?.name}`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    setTimeout(() => URL.revokeObjectURL(url), 100);
   };
 
   const reset = () => {

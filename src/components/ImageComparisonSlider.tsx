@@ -39,7 +39,8 @@ export default function ImageComparisonSlider({
   return (
     <div 
       ref={containerRef}
-      className="relative min-h-[300px] sm:min-h-[400px] h-auto aspect-video rounded-3xl sm:rounded-[2.5rem] overflow-hidden bg-slate-100 dark:bg-slate-800 border border-white/50 dark:border-white/5 shadow-2xl cursor-col-resize select-none group"
+      className="relative aspect-video rounded-3xl sm:rounded-[2.5rem] overflow-hidden bg-slate-100 dark:bg-slate-800 border border-white/50 dark:border-white/5 shadow-2xl cursor-col-resize select-none group h-full"
+      style={{ minHeight: '300px' }}
       onMouseMove={handleMove}
       onTouchMove={handleMove}
     >

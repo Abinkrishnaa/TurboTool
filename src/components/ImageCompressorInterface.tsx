@@ -130,7 +130,7 @@ export default function ImageCompressorInterface() {
         ) : (
           <motion.div key="interface" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="p-4">
             <div className="flex flex-col lg:flex-row gap-12 items-start">
-              <div className="w-full lg:w-3/5">
+              <div className="w-full lg:w-3/5 min-h-[300px] sm:min-h-[450px]">
                 <ImageComparisonSlider 
                   beforeUrl={selectedUrl || ""}
                   afterUrl={compressedUrl || selectedUrl || ""}
