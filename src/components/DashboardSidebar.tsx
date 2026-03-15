@@ -39,7 +39,7 @@ export default function DashboardSidebar({ isOpen, onClose }: DashboardSidebarPr
         onClick={onClose}
       />
 
-      <aside className={`w-72 h-screen fixed left-0 top-0 border-r border-[#E5E5E5] bg-white flex flex-col z-[70] transition-transform lg:translate-x-0 ${
+      <aside className={`w-72 h-screen fixed left-0 top-0 border-r border-[#E5E5E5] dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col z-[70] transition-all duration-300 lg:translate-x-0 ${
         isOpen ? "translate-x-0" : "-translate-x-full"
       }`}>
         <button 
@@ -50,7 +50,7 @@ export default function DashboardSidebar({ isOpen, onClose }: DashboardSidebarPr
         </button>
 
         {/* Sidebar Header */}
-        <div className="h-16 flex items-center px-6 border-b border-[#E5E5E5]">
+        <div className="h-16 flex items-center px-6 border-b border-[#E5E5E5] dark:border-slate-800">
           <Link href="/" onClick={onClose}>
             <Logo showText={true} className="scale-90 origin-left" />
           </Link>
@@ -66,8 +66,8 @@ export default function DashboardSidebar({ isOpen, onClose }: DashboardSidebarPr
                 onClick={onClose}
                 className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                   pathname === "/" 
-                    ? "bg-[#F5F5F5] text-[#111]" 
-                    : "text-slate-500 hover:bg-[#F9FAFB] hover:text-[#111]"
+                    ? "bg-[#F5F5F5] dark:bg-slate-800 text-[#111] dark:text-white" 
+                    : "text-slate-500 hover:bg-[#F9FAFB] dark:hover:bg-slate-800/50 hover:text-[#111] dark:hover:text-white"
                 }`}
               >
                 <Home className="w-4 h-4" />
@@ -89,8 +89,8 @@ export default function DashboardSidebar({ isOpen, onClose }: DashboardSidebarPr
                       onClick={onClose}
                       className={`flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors group ${
                         pathname === tool.href
-                          ? "bg-[#F5F5F5] text-[#111] font-semibold"
-                          : "text-slate-500 hover:bg-[#F9FAFB] hover:text-[#111]"
+                          ? "bg-[#F5F5F5] dark:bg-slate-800 text-[#111] dark:text-white font-semibold"
+                          : "text-slate-500 hover:bg-[#F9FAFB] dark:hover:bg-slate-800/50 hover:text-[#111] dark:hover:text-white"
                       }`}
                     >
                       <div className="flex items-center gap-3">
@@ -98,7 +98,7 @@ export default function DashboardSidebar({ isOpen, onClose }: DashboardSidebarPr
                         <span>{tool.name}</span>
                       </div>
                       {pathname === tool.href && (
-                        <div className="w-1 h-4 bg-[#111] rounded-full" />
+                        <div className="w-1 h-4 bg-[#111] dark:bg-white rounded-full" />
                       )}
                     </Link>
                   ))}
@@ -108,14 +108,13 @@ export default function DashboardSidebar({ isOpen, onClose }: DashboardSidebarPr
           </div>
         </div>
 
-        {/* Sidebar Footer */}
-        <div className="p-4 border-t border-[#E5E5E5]">
-          <div className="p-4 bg-slate-50 rounded-xl border border-[#E5E5E5]">
-            <div className="flex items-center gap-2 text-xs font-bold text-[#111] mb-2">
+        <div className="p-4 border-t border-[#E5E5E5] dark:border-slate-800">
+          <div className="p-4 bg-emerald-50/40 dark:bg-emerald-950/20 rounded-xl border border-emerald-100 dark:border-emerald-800/50">
+            <div className="flex items-center gap-2 text-xs font-bold text-emerald-600 dark:text-emerald-400 mb-2">
               <span className="flex h-2 w-2 rounded-full bg-emerald-500"></span>
               <span>100% Privacy</span>
             </div>
-            <p className="text-[10px] text-slate-400 leading-normal">
+            <p className="text-[10px] text-slate-400 dark:text-slate-500 leading-normal">
               Your data never leaves your browser. Safe and secure.
             </p>
           </div>

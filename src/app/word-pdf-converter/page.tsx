@@ -38,7 +38,7 @@ function WordPdfConverterContent() {
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://TurboTool.com" },
-      { "@type": "ListItem", "position": 2, "name": "Word & PDF Suite", "item": "https://TurboTool.com/word-pdf-converter" }
+      { "@type": "ListItem", "position": 2, "name": "Word & PDF Professional", "item": "https://TurboTool.com/word-pdf-converter" }
     ]
   };
 
@@ -66,7 +66,7 @@ function WordPdfConverterContent() {
       />
       
       <div className="container mx-auto px-6 py-4 max-w-7xl">
-        <Breadcrumbs items={[{ label: "Word & PDF Suite" }]} />
+        <Breadcrumbs items={[{ label: "Word & PDF Professional" }]} />
         
         {/* Header Section */}
         <div className="text-center mb-16 space-y-6 mt-8">
@@ -74,7 +74,7 @@ function WordPdfConverterContent() {
             <ArrowRightLeft className="w-10 h-10" />
           </div>
           <h1 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
-            Professional <span className="text-orange-600">Word & PDF Suite</span>
+            Professional <span className="text-orange-600">Word & PDF Professional</span>
           </h1>
           <p className="text-xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto font-medium">
             Seamlessly convert between Word and PDF documents while preserving perfect layouts. Fast, secure, and 100% private.
@@ -147,7 +147,7 @@ function WordPdfConverterContent() {
           title="Professional Document Conversion Without Compromise"
           content={[
             "Converting between Word and PDF is one of the most common tasks for professionals, students, and businesses. However, many online tools sacrifice document formatting or, worse, compromise your data privacy by uploading files to a cloud server.",
-            "TurboTools solves this with our <strong>Professional Word & PDF Suite</strong>. Our engine runs 100% client-side, meaning your sensitive documents—legal contracts, resumes, or financial reports—are processed entirely within your browser. We never see your content, and it's never stored on any server.",
+            "TurboTools solves this with our <strong>Professional Word & PDF Professional</strong>. Our engine runs 100% client-side, meaning your sensitive documents—legal contracts, resumes, or financial reports—are processed entirely within your browser. We never see your content, and it's never stored on any server.",
             "Our <strong>PDF to Word</strong> converter uses advanced structural analysis to reconstruct editable DOCX files that look exactly like the original PDF. Similarly, our <strong>Word to PDF</strong> tool generates high-fidelity documents that are ready for distribution, printing, or archiving."
           ]}
           benefits={[

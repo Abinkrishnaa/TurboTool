@@ -13,7 +13,7 @@ export default function DashboardLayout({ children, toolName }: DashboardLayoutP
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-white">
+    <div className="flex min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
       {/* Sidebar */}
       <DashboardSidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
@@ -27,8 +27,8 @@ export default function DashboardLayout({ children, toolName }: DashboardLayoutP
           </div>
         </main>
 
-        <footer className="px-12 py-8 border-t border-[#F1F1F1] text-center">
-          <p className="text-[11px] font-bold text-slate-300 uppercase tracking-widest">
+        <footer className="px-12 py-8 border-t border-[#F1F1F1] dark:border-slate-800 text-center">
+          <p className="text-[11px] font-bold text-slate-300 dark:text-slate-600 uppercase tracking-widest">
             © 2026 TurboTool • Privacy-first online utilities
           </p>
         </footer>

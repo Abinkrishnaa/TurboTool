@@ -175,7 +175,7 @@ export default function WordToPdfInterface() {
           <p className="text-sm text-slate-500 mb-8 max-w-xs mx-auto">
             Drag and drop your DOCX file here. Files are processed locally for maximum privacy.
           </p>
-          <label className="inline-flex items-center px-6 py-3 bg-[#111] text-white rounded-full text-sm font-bold cursor-pointer hover:bg-slate-800 transition-all active:scale-95">
+          <label className="inline-flex items-center px-6 py-3 bg-orange-600 text-white rounded-full text-sm font-bold cursor-pointer hover:bg-orange-700 transition-all active:scale-95 shadow-lg shadow-orange-600/20">
             Select Word File
             <input type="file" className="hidden" accept=".docx" onChange={handleFileChange} />
           </label>
@@ -213,7 +213,7 @@ export default function WordToPdfInterface() {
           <button
             onClick={processFile}
             disabled={isProcessing}
-            className="w-full py-4 bg-[#111] text-white rounded-xl text-sm font-bold flex items-center justify-center gap-3 hover:bg-slate-800 transition-all active:scale-[0.98] disabled:opacity-50"
+            className="w-full py-4 bg-orange-600 text-white rounded-xl text-sm font-bold flex items-center justify-center gap-3 hover:bg-orange-700 transition-all active:scale-[0.98] disabled:opacity-50 shadow-lg shadow-orange-600/20"
           >
             {isProcessing ? (
               <>
@@ -239,7 +239,7 @@ export default function WordToPdfInterface() {
                   initial={{ width: "0%" }}
                   animate={{ width: "100%" }}
                   transition={{ duration: 3 }}
-                  className="h-full bg-slate-900"
+                  className="h-full bg-orange-600"
                 />
               </div>
               <p className="text-[10px] text-slate-400 text-center font-bold uppercase tracking-widest">
@@ -254,7 +254,7 @@ export default function WordToPdfInterface() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center p-12 bg-white rounded-2xl border-2 border-[#111] shadow-[0_20px_50px_rgba(0,0,0,0.1)]"
+          className="text-center p-12 bg-white dark:bg-slate-900 rounded-2xl border-2 border-emerald-500 shadow-[0_20px_50px_rgba(0,0,0,0.1)]"
         >
           <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6">
             <Zap className="w-10 h-10 text-green-600" />

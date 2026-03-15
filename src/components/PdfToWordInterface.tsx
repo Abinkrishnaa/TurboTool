@@ -182,7 +182,7 @@ export default function PdfToWordInterface() {
           <p className="text-sm text-slate-500 mb-8 max-w-xs mx-auto">
             Drag and drop your PDF here or click to browse. Files are processed locally for maximum privacy.
           </p>
-          <label className="inline-flex items-center px-6 py-3 bg-[#111] text-white rounded-full text-sm font-bold cursor-pointer hover:bg-slate-800 transition-all active:scale-95">
+          <label className="inline-flex items-center px-6 py-3 bg-orange-600 text-white rounded-full text-sm font-bold cursor-pointer hover:bg-orange-700 transition-all active:scale-95 shadow-lg shadow-orange-600/20">
             Select PDF
             <input type="file" className="hidden" accept=".pdf" onChange={handleFileChange} />
           </label>
@@ -214,7 +214,7 @@ export default function PdfToWordInterface() {
           <button
             onClick={processFile}
             disabled={isProcessing}
-            className="w-full py-4 bg-[#111] text-white rounded-xl text-sm font-bold flex items-center justify-center gap-3 hover:bg-slate-800 transition-all active:scale-[0.98] disabled:opacity-50"
+            className="w-full py-4 bg-orange-600 text-white rounded-xl text-sm font-bold flex items-center justify-center gap-3 hover:bg-orange-700 transition-all active:scale-[0.98] disabled:opacity-50 shadow-lg shadow-orange-600/20"
           >
             {isProcessing ? (
               <>
@@ -240,7 +240,7 @@ export default function PdfToWordInterface() {
                   initial={{ width: "0%" }}
                   animate={{ width: "100%" }}
                   transition={{ duration: 4 }}
-                  className="h-full bg-slate-900"
+                  className="h-full bg-orange-600"
                 />
               </div>
               <p className="text-[10px] text-slate-400 text-center font-bold uppercase tracking-widest">

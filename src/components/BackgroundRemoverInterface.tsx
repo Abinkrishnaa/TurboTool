@@ -21,6 +21,7 @@ export default function BackgroundRemoverInterface() {
   const [processedImage, setProcessedImage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [progress, setProgress] = useState(0);
+  const [retryCount, setRetryCount] = useState(0);
 
   const handleFileSelect = (file: File) => {
     setSelectedFile(file);
@@ -31,28 +32,32 @@ export default function BackgroundRemoverInterface() {
     setPreviewUrl(URL.createObjectURL(file));
   };
 
-  const removeBackground = async () => {
+  const removeBackground = async (isRetry = false) => {
     if (!selectedFile) return;
 
-    setStatus("optimizing");
+    setStatus(isRetry ? "optimizing" : "optimizing");
     setProgress(0);
+    if (!isRetry) setRetryCount(0);
     
     try {
       // 1. Mobile Optimization: Pre-scale image if it's too large to save WebGL memory
       let fileToProcess = selectedFile;
       
-      // Limit to 1600px for mobile safety if the file is large
-      if (selectedFile.size > 1 * 1024 * 1024) { 
+      // Optimization thresholds
+      const MAX_SIZE_MB = isRetry ? 0.8 : 1.5;
+      const MAX_DIM = isRetry ? 1024 : 1600;
+      
+      if (selectedFile.size > 0.5 * 1024 * 1024 || isRetry) { 
         const options = {
-          maxSizeMB: 1.5,
-          maxWidthOrHeight: 1600,
+          maxSizeMB: MAX_SIZE_MB,
+          maxWidthOrHeight: MAX_DIM,
           useWebWorker: true
         };
         try {
           fileToProcess = await imageCompression(selectedFile, options);
-          console.log("Image optimized for mobile processing");
+          console.log(`Image optimized (${MAX_DIM}px) for ${isRetry ? 'retry' : 'safety'}`);
         } catch (compressionError) {
-          console.warn("Compression failed, trying original file:", compressionError);
+          console.warn("Compression failed, trying current file:", compressionError);
         }
       }
 
@@ -68,11 +73,22 @@ export default function BackgroundRemoverInterface() {
       const url = URL.createObjectURL(processedBlob);
       setProcessedImage(url);
       setStatus("done");
+      setRetryCount(0);
     } catch (err: any) {
-      console.error(err);
-      let msg = "AI processing failed. Ensure you're on a desktop or try a smaller image.";
-      if (err.message?.includes("WebGL") || err.message?.includes("memory")) {
-        msg = "Device memory limit reached. Try uploading a smaller or cropped version of the image.";
+      console.error("Background Removal Error:", err);
+      
+      const isMemoryError = err.message?.includes("WebGL") || err.message?.includes("memory") || err.message?.includes("out of memory");
+      
+      if (isMemoryError && !isRetry) {
+        console.log("Memory limit reached. Initiating auto-recovery...");
+        setRetryCount(1);
+        removeBackground(true); // Recursive retry with aggressive downscaling
+        return;
+      }
+
+      let msg = "AI processing failed. Please try a smaller image or use a desktop browser.";
+      if (isMemoryError) {
+        msg = "Device memory limit reached even after optimization. Try a significantly smaller or cropped image.";
       }
       setErrorMessage(msg);
       setStatus("error");
@@ -128,7 +144,7 @@ export default function BackgroundRemoverInterface() {
               <div className="space-y-4">
                 {status === "idle" && (
                   <button 
-                    onClick={removeBackground}
+                    onClick={() => removeBackground(false)}
                     className="w-full py-4 bg-[#111] dark:bg-white text-white dark:text-[#111] rounded-lg font-bold text-sm shadow-sm hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-3"
                   >
                     <Sparkles className="w-4 h-4" />
@@ -140,7 +156,7 @@ export default function BackgroundRemoverInterface() {
                   <div className="space-y-4 py-4 text-center">
                     <RefreshCw className="w-6 h-6 mx-auto text-indigo-500 animate-spin" />
                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                      Optimizing Image for Mobile...
+                      {retryCount > 0 ? "Memory Recovery: Re-scaling..." : "Optimizing for Mobile..."}
                     </p>
                   </div>
                 )}
