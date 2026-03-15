@@ -199,6 +199,7 @@ export default function AIPromptBar() {
         <div className="relative flex items-center bg-white dark:bg-slate-950 rounded-[22px] px-4 md:px-6 py-3.5 md:py-4 border border-white/10">
           <Sparkles className={`w-5 h-5 mr-3 md:mr-4 shrink-0 transition-colors duration-300 ${isFocused ? "text-indigo-500 animate-pulse" : "text-slate-400"}`} />
           
+          
           <div className="flex-1 flex flex-wrap items-center gap-2 min-w-0">
             {uploadedFile && (
               <div className="flex items-center gap-1.5 px-3 py-1 bg-indigo-50 dark:bg-indigo-900/40 rounded-lg text-indigo-600 dark:text-indigo-300 text-[10px] font-bold border border-indigo-100 dark:border-indigo-800 tracking-tight">
