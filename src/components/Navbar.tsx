@@ -6,6 +6,7 @@ import Logo from "./Logo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -82,8 +83,10 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Right: CTA Button */}
-        <div className="flex-1 flex justify-end items-center gap-4">
+        {/* Right: CTA & Theme Toggle */}
+        <div className="flex-1 flex justify-end items-center gap-2 md:gap-4">
+          <ThemeToggle />
+
           <Link href="/#tools" className="hidden md:flex items-center gap-2 px-5 py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full text-sm font-semibold hover:opacity-90 transition-all active:scale-95">
             <span>Get Started</span>
             <ChevronRight className="w-4 h-4" />

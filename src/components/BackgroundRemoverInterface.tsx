@@ -11,11 +11,12 @@ import {
   AlertCircle
 } from "lucide-react";
 import { removeBackground as imglyRemoveBackground } from "@imgly/background-removal";
+import imageCompression from "browser-image-compression";
 import Dropzone from "./Dropzone";
 
 export default function BackgroundRemoverInterface() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [status, setStatus] = useState<"idle" | "processing" | "done" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "optimizing" | "processing" | "done" | "error">("idle");
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [processedImage, setProcessedImage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
@@ -33,24 +34,47 @@ export default function BackgroundRemoverInterface() {
   const removeBackground = async () => {
     if (!selectedFile) return;
 
-    setStatus("processing");
+    setStatus("optimizing");
     setProgress(0);
     
     try {
-      const processedBlob = await imglyRemoveBackground(selectedFile, {
+      // 1. Mobile Optimization: Pre-scale image if it's too large to save WebGL memory
+      let fileToProcess = selectedFile;
+      
+      // Limit to 1600px for mobile safety if the file is large
+      if (selectedFile.size > 1 * 1024 * 1024) { 
+        const options = {
+          maxSizeMB: 1.5,
+          maxWidthOrHeight: 1600,
+          useWebWorker: true
+        };
+        try {
+          fileToProcess = await imageCompression(selectedFile, options);
+          console.log("Image optimized for mobile processing");
+        } catch (compressionError) {
+          console.warn("Compression failed, trying original file:", compressionError);
+        }
+      }
+
+      setStatus("processing");
+      const processedBlob = await imglyRemoveBackground(fileToProcess, {
         progress: (key, current, total) => {
           const p = Math.round((current / total) * 100);
           setProgress(p);
         },
-        model: "isnet_fp16", // Using high-performance model
+        model: "isnet_fp16",
       });
       
       const url = URL.createObjectURL(processedBlob);
       setProcessedImage(url);
       setStatus("done");
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      setErrorMessage("AI processing failed. This tool requires WebGL and high memory. Ensure you're on a desktop browser.");
+      let msg = "AI processing failed. Ensure you're on a desktop or try a smaller image.";
+      if (err.message?.includes("WebGL") || err.message?.includes("memory")) {
+        msg = "Device memory limit reached. Try uploading a smaller or cropped version of the image.";
+      }
+      setErrorMessage(msg);
       setStatus("error");
     }
   };
@@ -112,6 +136,15 @@ export default function BackgroundRemoverInterface() {
                   </button>
                 )}
 
+                {status === "optimizing" && (
+                  <div className="space-y-4 py-4 text-center">
+                    <RefreshCw className="w-6 h-6 mx-auto text-indigo-500 animate-spin" />
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                      Optimizing Image for Mobile...
+                    </p>
+                  </div>
+                )}
+
                 {status === "processing" && (
                   <div className="space-y-4">
                     <div className="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
@@ -123,7 +156,7 @@ export default function BackgroundRemoverInterface() {
                       />
                     </div>
                     <p className="text-center text-[10px] font-bold text-slate-400 uppercase tracking-widest animate-pulse">
-                      {progress < 100 ? `Downloading Model & Processing: ${progress}%` : "Finalizing pixels..."}
+                      {progress < 100 ? `AI Processing: ${progress}%` : "Finalizing pixels..."}
                     </p>
                   </div>
                 )}

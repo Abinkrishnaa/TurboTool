@@ -196,10 +196,10 @@ export default function AIPromptBar() {
             : "bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 shadow-lg"
         }`}
       >
-        <div className="relative flex items-center bg-white dark:bg-slate-950 rounded-[22px] px-6 py-4 overflow-hidden border border-white/10">
-          <Sparkles className={`w-5 h-5 mr-4 transition-colors duration-300 ${isFocused ? "text-indigo-500 animate-pulse" : "text-slate-400"}`} />
+        <div className="relative flex items-center bg-white dark:bg-slate-950 rounded-[22px] px-4 md:px-6 py-3.5 md:py-4 border border-white/10">
+          <Sparkles className={`w-5 h-5 mr-3 md:mr-4 shrink-0 transition-colors duration-300 ${isFocused ? "text-indigo-500 animate-pulse" : "text-slate-400"}`} />
           
-          <div className="flex-1 flex flex-wrap items-center gap-2">
+          <div className="flex-1 flex flex-wrap items-center gap-2 min-w-0">
             {uploadedFile && (
               <div className="flex items-center gap-1.5 px-3 py-1 bg-indigo-50 dark:bg-indigo-900/40 rounded-lg text-indigo-600 dark:text-indigo-300 text-[10px] font-bold border border-indigo-100 dark:border-indigo-800 tracking-tight">
                 <ImagePlus className="w-3.5 h-3.5" />
@@ -210,28 +210,27 @@ export default function AIPromptBar() {
             <input
               ref={inputRef}
               type="text"
-              placeholder={isListening ? "Listening..." : "Ask me anything or request a tool..."}
+              placeholder={isListening ? "Listening..." : "Ask me anything..."}
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setTimeout(() => setIsFocused(false), 200)}
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
-              className="flex-1 bg-transparent border-none text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none text-lg font-medium min-w-[200px]"
+              className="flex-1 bg-transparent border-none text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none text-base md:text-lg font-medium min-w-0"
             />
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-4 ml-4">
-            <button onClick={startListening} className={`p-2 rounded-xl transition-all ${isListening ? "bg-red-50 text-red-500 animate-pulse" : "text-slate-400 hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-900"}`}>
+          <div className="flex items-center gap-1 sm:gap-4 ml-2 md:ml-4 shrink-0">
+            <button onClick={startListening} className={`p-2 rounded-xl transition-all hidden xs:flex ${isListening ? "bg-red-50 text-red-500 animate-pulse" : "text-slate-400 hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-900"}`}>
               <Mic className="w-5 h-5" />
             </button>
             <button onClick={() => fileInputRef.current?.click()} className="p-2 text-slate-400 hover:text-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-xl transition-all">
               {isUploading ? <Loader2 className="w-5 h-5 animate-spin" /> : <ImagePlus className="w-5 h-5" />}
             </button>
-            <input ref={fileInputRef} type="file" className="hidden" onChange={handleFileUpload} />
-            <div className="h-6 w-[1px] bg-slate-200 dark:bg-slate-800 mx-1" />
+            <div className="h-6 w-[1px] bg-slate-200 dark:bg-slate-800 mx-0.5 md:mx-1" />
             <button 
               onClick={handleSend}
-              className={`p-2.5 rounded-xl transition-all ${
+              className={`p-2 sm:p-2.5 rounded-xl transition-all ${
                 (prompt.length > 0 || uploadedFile) 
                   ? "bg-indigo-600 text-white shadow-lg active:scale-95 hover:bg-indigo-700" 
                   : "bg-slate-100 dark:bg-slate-800 text-slate-400 opacity-50"

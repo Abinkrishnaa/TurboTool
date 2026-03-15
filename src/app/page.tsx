@@ -32,7 +32,7 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-32 pb-32 bg-background">
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex flex-col items-center justify-center pt-32 pb-24 overflow-hidden bg-saas-grid">
+      <section className="relative min-h-[85vh] md:min-h-[90vh] flex flex-col items-center justify-center pt-20 pb-16 md:pt-32 md:pb-24 overflow-hidden bg-saas-grid">
         {/* Abstract Background Accents */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full -z-10 pointer-events-none">
           <div className="absolute top-1/4 -left-20 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[140px] animate-pulse" />
@@ -47,17 +47,17 @@ export default function Home() {
             className="flex flex-col items-center"
           >
             {/* Massive Logo & Brand Name */}
-            <div className="relative group mb-16">
+            <div className="relative group mb-10 md:mb-16">
               <div className="absolute -inset-8 bg-primary/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-              <Logo size="massive" className="relative" />
+              <Logo size="massive" className="relative scale-90 md:scale-100" />
             </div>
 
-            <h1 className="text-7xl md:text-9xl font-display font-black text-slate-900 dark:text-white mb-8 tracking-tighter leading-[0.85] text-balance max-w-5xl">
+            <h1 className="text-4xl md:text-9xl font-display font-black text-slate-900 dark:text-white mb-6 md:mb-8 tracking-tighter leading-[0.9] md:leading-[0.85] text-balance max-w-5xl">
               Tools <span className="bg-linear-to-r from-primary via-indigo-500 to-violet-500 bg-clip-text text-transparent">Powering</span> <br />
               Your Productivity.
             </h1>
 
-            <p className="text-xl md:text-2xl text-slate-500 dark:text-slate-400 max-w-3xl mx-auto mb-16 leading-relaxed font-medium tracking-tight">
+            <p className="text-lg md:text-2xl text-slate-500 dark:text-slate-400 max-w-3xl mx-auto mb-10 md:mb-16 leading-relaxed font-medium tracking-tight px-4 md:px-0">
               Experience the ultra-fast, local, and privacy-first way to handle any task. 
               No accounts. No uploads. No waiting.
             </p>

@@ -22,9 +22,9 @@ export default function Logo({ className = "", showText = true, size = "default"
       subtext: "text-xs"
     },
     massive: {
-      img: "w-24 h-24 md:w-32 md:h-32",
-      text: "text-6xl md:text-8xl",
-      subtext: "text-sm"
+      img: "w-16 h-16 md:w-32 md:h-32",
+      text: "text-4xl md:text-8xl",
+      subtext: "text-[10px] md:text-sm"
     }
   };
 

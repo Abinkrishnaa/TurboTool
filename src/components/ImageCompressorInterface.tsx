@@ -101,15 +101,13 @@ export default function ImageCompressorInterface() {
   }, [searchParams, compressImage]);
 
   const downloadImage = () => {
-    if (!compressedFile || !selectedFile) return;
-    const url = URL.createObjectURL(compressedFile);
+    if (!compressedUrl || !selectedFile) return;
     const link = document.createElement("a");
-    link.href = url;
+    link.href = compressedUrl;
     link.download = `compressed-${selectedFile.name}`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    URL.revokeObjectURL(url);
   };
 
   const reset = () => {
