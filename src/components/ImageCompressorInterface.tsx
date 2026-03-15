@@ -2,12 +2,13 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Dropzone from "@/components/Dropzone";
-import { Download, RefreshCw, Zap, Settings2, X } from "lucide-react";
+import { Download, RefreshCw, Zap, Settings2, X, AlertCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { getPendingFile, clearPendingFile, savePendingFile } from "@/utils/filePersist";
 import WorkflowNavigator from "@/components/WorkflowNavigator";
 import ImageComparisonSlider from "@/components/ImageComparisonSlider";
+import { downloadBlob, isMobileDevice } from "@/utils/download";
 
 export default function ImageCompressorInterface() {
   const searchParams = useSearchParams();
@@ -16,9 +17,10 @@ export default function ImageCompressorInterface() {
   const [status, setStatus] = useState<"idle" | "compressing" | "done" | "error">("idle");
   const [selectedUrl, setSelectedUrl] = useState<string | null>(null);
   const [compressedUrl, setCompressedUrl] = useState<string | null>(null);
-  const [compressionValue, setCompressionValue] = useState(0.7); // 70% quality
-  const [targetSizeMB, setTargetSizeMB] = useState(1); // 1MB default
+  const [compressionValue, setCompressionValue] = useState(0.7);
+  const [targetSizeMB, setTargetSizeMB] = useState(1);
   const [progress, setProgress] = useState(0);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const formatSize = (bytes: number) => {
     if (bytes === 0) return "0 Bytes";
@@ -34,15 +36,15 @@ export default function ImageCompressorInterface() {
     setStatus("compressing");
     setProgress(10);
 
-    // Guard: If original is already smaller than target, use high quality (no compression)
+    const isMobile = isMobileDevice();
     const isSmallerThanTarget = fileToCompress.size / (1024 * 1024) <= target;
     
     const options = {
-      maxSizeMB: target,
-      maxWidthOrHeight: 1920,
+      maxSizeMB: isMobile ? Math.min(target, 0.8) : target,
+      maxWidthOrHeight: isMobile ? 1200 : 1920,
       useWebWorker: true,
       onProgress: (p: number) => setProgress(p),
-      initialQuality: isSmallerThanTarget ? 0.95 : quality, // Don't compress if already small
+      initialQuality: isSmallerThanTarget ? 0.95 : quality,
     };
 
     try {
@@ -53,11 +55,14 @@ export default function ImageCompressorInterface() {
       setCompressedUrl(URL.createObjectURL(compressed));
       setStatus("done");
       setProgress(100);
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      console.error("Compression error:", error);
+      setErrorMessage(isMobileDevice() 
+        ? "Processing failed. Please try a smaller image (under 2MB)." 
+        : "Compression failed. Please try again.");
       setStatus("error");
     }
-  }, []);
+  }, [compressedUrl]);
 
   const handleFileSelect = (file: File) => {
     setSelectedFile(file);
@@ -103,14 +108,10 @@ export default function ImageCompressorInterface() {
     initAI();
   }, [searchParams, compressImage]);
 
-  const downloadImage = () => {
-    if (!compressedUrl || !selectedFile) return;
-    const link = document.createElement("a");
-    link.href = compressedUrl;
-    link.download = `compressed-${selectedFile.name}`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const downloadImage = async () => {
+    if (!compressedFile || !selectedFile) return;
+    const fileName = `compressed-${selectedFile.name}`;
+    await downloadBlob(compressedFile, fileName);
   };
 
   const reset = () => {
@@ -176,6 +177,22 @@ export default function ImageCompressorInterface() {
                 </div>
 
                 <div className="space-y-4 pt-4">
+                  {status === "error" && errorMessage && (
+                    <div className="p-4 rounded-xl border border-red-200 bg-red-50 dark:bg-red-900/20 flex flex-col gap-3">
+                      <div className="flex items-center gap-2 text-red-600 dark:text-red-400">
+                        <AlertCircle className="w-5 h-5" />
+                        <span className="text-sm font-bold">Processing Failed</span>
+                      </div>
+                      <p className="text-xs text-red-600 dark:text-red-300">{errorMessage}</p>
+                      <button 
+                        onClick={() => { setStatus("idle"); setErrorMessage(""); }}
+                        className="text-xs font-bold text-red-500 underline"
+                      >
+                        Try Again
+                      </button>
+                    </div>
+                  )}
+
                   {status === "idle" && (
                     <button 
                       onClick={() => compressImage(selectedFile, targetSizeMB, compressionValue)} 

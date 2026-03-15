@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import Dropzone from "@/components/Dropzone";
 import { Download, RefreshCw, Layers, FileText, Image as ImageIcon, X, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { downloadBlob } from "@/utils/download";
 // pdfjs-dist will be imported dynamically inside the function
 
 export default function PDFToImageInterface() {
@@ -62,17 +63,21 @@ export default function PDFToImageInterface() {
     }
   };
 
-  const downloadImage = (url: string, pageNum: number) => {
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `page-${pageNum}-${selectedFile?.name.replace(".pdf", "")}.png`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const downloadImage = async (url: string, pageNum: number) => {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      await downloadBlob(blob, `page-${pageNum}-${selectedFile?.name.replace(".pdf", "")}.png`);
+    } catch (error) {
+      // Fallback: open in new tab
+      window.open(url, '_blank');
+    }
   };
 
-  const downloadAll = () => {
-    images.forEach(img => downloadImage(img.url, img.pageNum));
+  const downloadAll = async () => {
+    for (const img of images) {
+      await downloadImage(img.url, img.pageNum);
+    }
   };
 
   const reset = () => {

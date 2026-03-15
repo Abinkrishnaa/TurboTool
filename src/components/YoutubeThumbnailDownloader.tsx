@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Youtube, Download, Link as LinkIcon, AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { downloadUrl, isMobileDevice } from '@/utils/download';
 
 export default function YoutubeThumbnailDownloader() {
   const [url, setUrl] = useState('');
@@ -45,29 +46,10 @@ export default function YoutubeThumbnailDownloader() {
     
     setIsLoading(true);
     try {
-      const response = await fetch(imageUrl);
-      const blob = await response.blob();
-      const blobUrl = window.URL.createObjectURL(blob);
-      
-      const link = document.createElement('a');
-      link.href = blobUrl;
-      link.download = `youtube-thumbnail-${videoId}-${quality}.jpg`;
-      link.style.display = 'none';
-      document.body.appendChild(link);
-      link.click();
-      
-      // Safety for iOS: Wait a bit before cleanup
-      setTimeout(() => {
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(blobUrl);
-      }, 100);
+      await downloadUrl(imageUrl, `youtube-thumbnail-${videoId}-${quality}.jpg`);
     } catch (err) {
       console.error("Download failed", err);
-      // Fallback: Open in new tab if blob fetch fails (usually CORS)
-      const win = window.open(imageUrl, '_blank');
-      if (!win) {
-        setError("Download blocked. Please long-press the thumbnail below to save.");
-      }
+      setError("Download blocked. Please long-press the thumbnail below to save on mobile.");
     } finally {
       setIsLoading(false);
     }

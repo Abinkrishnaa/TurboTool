@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { FileCode, Download, ArrowRight, Shield, Zap, FileCheck, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import jsPDF from 'jspdf';
+import { downloadBlob, isMobileDevice } from '@/utils/download';
 
 export default function WordToPdfInterface() {
   const [file, setFile] = useState<File | null>(null);
@@ -148,16 +149,9 @@ export default function WordToPdfInterface() {
     }
   };
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     if (!pdfBlob || !file) return;
-    const url = URL.createObjectURL(pdfBlob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = file.name.replace('.docx', '').replace('.doc', '') + '.pdf';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    await downloadBlob(pdfBlob, file.name.replace('.docx', '').replace('.doc', '') + '.pdf');
   };
 
   return (
