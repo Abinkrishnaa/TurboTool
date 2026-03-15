@@ -2,11 +2,15 @@
 
 const DB_NAME = "TurboToolDB";
 const STORE_NAME = "PendingFiles";
-const DB_VERSION = 2; // Bumped version to ensure onupgradeneeded runs
+const DB_VERSION = 2;
+
+let memoryStorage: File | null = null;
+let useMemoryStorage = false;
 
 function openDB(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
     if (typeof window === "undefined" || !window.indexedDB) {
+      useMemoryStorage = true;
       return reject("IndexedDB not supported");
     }
     try {
@@ -20,8 +24,13 @@ function openDB(): Promise<IDBDatabase> {
       };
 
       request.onsuccess = (e: any) => resolve(e.target.result);
-      request.onerror = () => reject("Failed to open IndexedDB");
+      request.onerror = (e: any) => {
+        console.warn("IndexedDB failed, using memory storage:", e);
+        useMemoryStorage = true;
+        reject("Failed to open IndexedDB");
+      };
     } catch (e) {
+      useMemoryStorage = true;
       reject(e);
     }
   });
@@ -39,12 +48,18 @@ export async function savePendingFile(file: File) {
       putRequest.onerror = () => reject("Failed to save file");
     });
   } catch (error) {
-    console.error(error);
-    return false;
+    console.warn("Using memory storage for file");
+    useMemoryStorage = true;
+    memoryStorage = file;
+    return true;
   }
 }
 
 export async function getPendingFile(): Promise<File | null> {
+  if (useMemoryStorage) {
+    return memoryStorage;
+  }
+  
   try {
     const db = await openDB();
     if (!db.objectStoreNames.contains(STORE_NAME)) return null;
@@ -57,12 +72,18 @@ export async function getPendingFile(): Promise<File | null> {
       getReq.onerror = () => resolve(null);
     });
   } catch (error) {
-    console.error(error);
-    return null;
+    console.warn("Using memory storage for file retrieval");
+    useMemoryStorage = true;
+    return memoryStorage;
   }
 }
 
 export async function clearPendingFile() {
+  if (useMemoryStorage) {
+    memoryStorage = null;
+    return;
+  }
+  
   try {
     const db = await openDB();
     if (db.objectStoreNames.contains(STORE_NAME)) {
@@ -70,6 +91,7 @@ export async function clearPendingFile() {
       transaction.objectStore(STORE_NAME).delete("active-file");
     }
   } catch (error) {
-    console.error(error);
+    console.warn("Failed to clear from IndexedDB");
+    memoryStorage = null;
   }
 }

@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Dropzone from "@/components/Dropzone";
 import { Download, Crop, Maximize, X, RefreshCw, Layers } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { downloadBlob, isMobileDevice } from "@/utils/download";
 
 const ASPECT_RATIOS = [
   { name: "Free", value: NaN },
@@ -63,7 +64,7 @@ export default function ImageCropperInterface() {
   };
 
   const handleExport = async () => {
-    if (!previewUrl || !containerRef.current) return;
+    if (!previewUrl || !containerRef.current || !selectedFile) return;
     setIsProcessing(true);
 
     try {
@@ -76,17 +77,13 @@ export default function ImageCropperInterface() {
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
 
-      // Use a high-quality capture resolution
-      // We want the cropped area to be relative to the original image's quality
       const originalImg = new Image();
       originalImg.src = previewUrl;
       await new Promise((resolve) => { originalImg.onload = resolve; });
 
-      // Calculate the crop box relative to the original image
       const scaleX = originalImg.naturalWidth / imgRect.width;
       const scaleY = originalImg.naturalHeight / imgRect.height;
 
-      // Source coordinates from the original image
       const sx = (containerRect.left - imgRect.left) * scaleX;
       const sy = (containerRect.top - imgRect.top) * scaleY;
       const sw = containerRect.width * scaleX;
@@ -99,15 +96,17 @@ export default function ImageCropperInterface() {
       ctx.imageSmoothingQuality = 'high';
       ctx.drawImage(originalImg, sx, sy, sw, sh, 0, 0, sw, sh);
 
-      const dataUrl = canvas.toDataURL("image/png");
-      const link = document.createElement("a");
-      link.href = dataUrl;
-      link.download = `cropped-${selectedFile?.name || 'image'}.png`;
-      link.click();
+      canvas.toBlob(async (blob) => {
+        if (blob) {
+          await downloadBlob(blob, `cropped-${selectedFile.name || 'image'}.png`);
+        } else {
+          alert("Export failed. Please try again.");
+        }
+        setIsProcessing(false);
+      }, 'image/png');
     } catch (error) {
       console.error(error);
       alert("Export failed. Please try again.");
-    } finally {
       setIsProcessing(false);
     }
   };

@@ -13,6 +13,7 @@ import {
 import { removeBackground as imglyRemoveBackground } from "@imgly/background-removal";
 import imageCompression from "browser-image-compression";
 import Dropzone from "./Dropzone";
+import { downloadBlob, isMobileDevice } from "@/utils/download";
 
 export default function BackgroundRemoverInterface() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -106,21 +107,30 @@ export default function BackgroundRemoverInterface() {
         return;
       }
 
-      let msg = "AI processing failed. Please try a smaller image or use a desktop browser.";
+      const isMobile = isMobileDevice();
+      let msg = isMobile 
+        ? "AI processing failed on mobile. Please try a smaller image (under 1MB) or use a desktop computer for best results."
+        : "AI processing failed. Please try a smaller image or use a desktop browser.";
       if (isMemoryError) {
-        msg = "Device memory limit reached even after optimization. Try a significantly smaller or cropped image.";
+        msg = isMobile
+          ? "Device memory limit reached. Try a much smaller image (under 500KB) for mobile processing."
+          : "Device memory limit reached. Try a significantly smaller or cropped image.";
       }
       setErrorMessage(msg);
       setStatus("error");
     }
   };
 
-  const downloadImage = () => {
+  const downloadImage = async () => {
     if (!processedImage) return;
-    const link = document.createElement("a");
-    link.href = processedImage;
-    link.download = `TurboTool-removed-bg-${Date.now()}.png`;
-    link.click();
+    try {
+      const response = await fetch(processedImage);
+      const blob = await response.blob();
+      await downloadBlob(blob, `TurboTool-removed-bg-${Date.now()}.png`);
+    } catch (error) {
+      // Fallback: open in new tab
+      window.open(processedImage, '_blank');
+    }
   };
 
   const reset = () => {

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { FileText, Download, ArrowRight, Shield, Zap, FileCheck, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Document, Packer, Paragraph, TextRun } from 'docx';
+import { downloadBlob, isMobileDevice } from '@/utils/download';
 interface ExtractedLine {
   text: string;
   fontSize: number;
@@ -135,12 +136,12 @@ export default function PdfToWordInterface() {
         children: [
           new TextRun({
             text: line.text,
-            size: Math.round(line.fontSize * 2), // docx uses half-points
+            size: Math.round(line.fontSize * 2),
             font: "Calibri"
           }),
         ],
         spacing: {
-          after: Math.round(line.spacingAfter * 10), // approximate conversion
+          after: Math.round(line.spacingAfter * 10),
         }
       })
     );
@@ -154,17 +155,8 @@ export default function PdfToWordInterface() {
       }],
     });
 
-    // Generate blob and trigger download
     const blob = await Packer.toBlob(doc);
-    const url = URL.createObjectURL(blob);
-    
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = file.name.replace('.pdf', '') + '_converted.docx';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    await downloadBlob(blob, file.name.replace('.pdf', '') + '_converted.docx');
   };
 
   return (

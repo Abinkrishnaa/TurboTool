@@ -4,6 +4,7 @@ import { useState } from "react";
 import Dropzone from "@/components/Dropzone";
 import { Download, X, FileType, AlertCircle, FilePlus, RefreshCw } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { downloadBlob } from "@/utils/download";
 // jsPDF will be imported dynamically inside the function
 
 export default function ImageToPdfInterface() {
@@ -75,16 +76,9 @@ export default function ImageToPdfInterface() {
     });
   };
 
-  const downloadPdf = () => {
+  const downloadPdf = async () => {
     if (!resultBlob) return;
-    const url = URL.createObjectURL(resultBlob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `converted-images.pdf`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    await downloadBlob(resultBlob, `converted-images.pdf`);
   };
 
   const reset = () => {
