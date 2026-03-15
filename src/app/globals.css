@@ -16,6 +16,10 @@
   --shadow-premium-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.03);
 }
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 :root {
   --background: 220 33% 98%;
   --foreground: 224 71.4% 4.1%;

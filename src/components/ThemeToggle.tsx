@@ -7,29 +7,41 @@ import { motion } from "framer-motion";
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
-    // 1. Initial Theme Logic
-    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
-    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    const initialTheme = savedTheme || systemTheme;
-    
-    setTheme(initialTheme);
-    if (initialTheme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
+    setMounted(true);
+    try {
+      const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      const initialTheme = savedTheme || systemTheme;
+      
+      setTheme(initialTheme);
+      if (initialTheme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    } catch (e) {
+      console.warn("Theme initialization failed:", e);
     }
   }, []);
 
+  if (!mounted) return <div className="p-5" />; // Placeholder for symmetry
+
   const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-    
-    if (newTheme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
+    try {
+      const newTheme = theme === "light" ? "dark" : "light";
+      setTheme(newTheme);
+      localStorage.setItem("theme", newTheme);
+      
+      if (newTheme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    } catch (e) {
+      console.error("Theme toggle failed:", e);
     }
   };
 

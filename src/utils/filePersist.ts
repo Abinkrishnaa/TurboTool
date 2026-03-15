@@ -6,17 +6,24 @@ const DB_VERSION = 2; // Bumped version to ensure onupgradeneeded runs
 
 function openDB(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open(DB_NAME, DB_VERSION);
-    
-    request.onupgradeneeded = (e: any) => {
-      const db = e.target.result;
-      if (!db.objectStoreNames.contains(STORE_NAME)) {
-        db.createObjectStore(STORE_NAME);
-      }
-    };
+    if (typeof window === "undefined" || !window.indexedDB) {
+      return reject("IndexedDB not supported");
+    }
+    try {
+      const request = indexedDB.open(DB_NAME, DB_VERSION);
+      
+      request.onupgradeneeded = (e: any) => {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains(STORE_NAME)) {
+          db.createObjectStore(STORE_NAME);
+        }
+      };
 
-    request.onsuccess = (e: any) => resolve(e.target.result);
-    request.onerror = () => reject("Failed to open IndexedDB");
+      request.onsuccess = (e: any) => resolve(e.target.result);
+      request.onerror = () => reject("Failed to open IndexedDB");
+    } catch (e) {
+      reject(e);
+    }
   });
 }
 

@@ -21,6 +21,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
