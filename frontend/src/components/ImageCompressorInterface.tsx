@@ -9,6 +9,7 @@ import { getPendingFile, clearPendingFile, savePendingFile } from "@/utils/fileP
 import WorkflowNavigator from "@/components/WorkflowNavigator";
 import ImageComparisonSlider from "@/components/ImageComparisonSlider";
 import { downloadBlob, isMobileDevice } from "@/utils/download";
+import ProgressStatus from "./ProgressStatus";
 
 export default function ImageCompressorInterface() {
   const searchParams = useSearchParams();
@@ -20,6 +21,7 @@ export default function ImageCompressorInterface() {
   const [compressionValue, setCompressionValue] = useState(0.7);
   const [targetSizeMB, setTargetSizeMB] = useState(1);
   const [progress, setProgress] = useState(0);
+  const [statusLevel, setStatusLevel] = useState<1 | 2 | 3 | 4 | 5>(1);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   const formatSize = (bytes: number) => {
@@ -34,6 +36,7 @@ export default function ImageCompressorInterface() {
     if (!fileToCompress) return;
 
     setStatus("compressing");
+    setStatusLevel(1);
     setProgress(10);
 
     const isMobile = isMobileDevice();
@@ -43,7 +46,12 @@ export default function ImageCompressorInterface() {
       maxSizeMB: isMobile ? Math.min(target, 0.8) : target,
       maxWidthOrHeight: isMobile ? 1200 : 1920,
       useWebWorker: true,
-      onProgress: (p: number) => setProgress(p),
+      onProgress: (p: number) => {
+        setProgress(p);
+        if (p > 30) setStatusLevel(2);
+        if (p > 60) setStatusLevel(3);
+        if (p > 90) setStatusLevel(4);
+      },
       initialQuality: isSmallerThanTarget ? 0.95 : quality,
     };
 
@@ -53,6 +61,7 @@ export default function ImageCompressorInterface() {
       setCompressedFile(compressed);
       if (compressedUrl) URL.revokeObjectURL(compressedUrl);
       setCompressedUrl(URL.createObjectURL(compressed));
+      setStatusLevel(5);
       setStatus("done");
       setProgress(100);
     } catch (error: any) {
@@ -61,6 +70,8 @@ export default function ImageCompressorInterface() {
         ? "Processing failed. Please try a smaller image (under 2MB)." 
         : "Compression failed. Please try again.");
       setStatus("error");
+      setStatusLevel(1);
+      setProgress(0);
     }
   }, [compressedUrl]);
 
@@ -73,6 +84,7 @@ export default function ImageCompressorInterface() {
     setCompressedUrl(null);
     setStatus("idle");
     setProgress(0);
+    setStatusLevel(1);
     
     const originalMB = file.size / (1024 * 1024);
     if (originalMB < 1) {
@@ -119,6 +131,7 @@ export default function ImageCompressorInterface() {
     setCompressedFile(null);
     setStatus("idle");
     setProgress(0);
+    setStatusLevel(1);
   };
 
   return (
@@ -204,14 +217,11 @@ export default function ImageCompressorInterface() {
                   )}
 
                   {status === "compressing" && (
-                    <div className="space-y-4">
-                      <div className="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                        <motion.div className="h-full bg-[#111] dark:bg-white" initial={{ width: 0 }} animate={{ width: `${progress}%` }} />
-                      </div>
-                      <p className="text-center text-[10px] font-bold text-slate-400 uppercase tracking-widest animate-pulse">
-                        Optimizing... {progress}%
-                      </p>
-                    </div>
+                    <ProgressStatus 
+                      level={statusLevel} 
+                      progress={progress} 
+                      isClientSide={true}
+                    />
                   )}
 
                   {status === "done" && compressedFile && (

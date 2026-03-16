@@ -12,18 +12,18 @@ interface LogoProps {
 export default function Logo({ className = "", showText = true, size = "default", variant = "default" }: LogoProps) {
   const sizeClasses = {
     default: {
-      img: "w-12 h-12 md:w-14 md:h-14",
-      text: "text-2xl md:text-3xl",
+      img: "w-16 h-16 md:w-20 md:h-20",
+      text: "text-3xl md:text-4xl",
       subtext: "text-[10px]"
     },
     large: {
-      img: "w-16 h-16 md:w-20 md:h-20",
+      img: "w-20 h-20 md:w-28 md:h-28",
       text: "text-4xl md:text-5xl",
       subtext: "text-xs"
     },
     massive: {
-      img: "w-16 h-16 md:w-32 md:h-32",
-      text: "text-4xl md:text-8xl",
+      img: "w-24 h-24 md:w-40 md:h-40",
+      text: "text-5xl md:text-8xl",
       subtext: "text-[10px] md:text-sm"
     }
   };

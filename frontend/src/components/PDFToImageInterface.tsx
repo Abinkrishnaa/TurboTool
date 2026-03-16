@@ -5,11 +5,13 @@ import Dropzone from "@/components/Dropzone";
 import { Download, Layers, FileText, X, Loader2, AlertCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { API_ENDPOINTS } from "@/utils/apiConfig";
+import ProgressStatus from "./ProgressStatus";
 
 export default function PDFToImageInterface() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [status, setStatus] = useState<"idle" | "processing" | "done" | "error">("idle");
   const [progress, setProgress] = useState(0);
+  const [statusLevel, setStatusLevel] = useState<1 | 2 | 3 | 4 | 5>(1);
   const [error, setError] = useState<string | null>(null);
   const processingRef = useRef(false);
 
@@ -25,6 +27,7 @@ export default function PDFToImageInterface() {
     setSelectedFile(file);
     setStatus("idle");
     setProgress(0);
+    setStatusLevel(1);
     setError(null);
   };
 
@@ -34,12 +37,14 @@ export default function PDFToImageInterface() {
     processingRef.current = true;
     setStatus("processing");
     setError(null);
+    setStatusLevel(1);
     setProgress(10);
 
     try {
       const formData = new FormData();
       formData.append('file', selectedFile);
 
+      setStatusLevel(2);
       setProgress(30);
 
       const response = await fetch(API_ENDPOINTS.pdfToImage, {
@@ -47,6 +52,7 @@ export default function PDFToImageInterface() {
         body: formData,
       });
 
+      setStatusLevel(3);
       setProgress(70);
 
       if (!response.ok) {
@@ -54,6 +60,7 @@ export default function PDFToImageInterface() {
         throw new Error(errorData.detail || `Server error: ${response.status}`);
       }
 
+      setStatusLevel(4);
       setProgress(90);
 
       // Get the ZIP blob and trigger download
@@ -67,12 +74,15 @@ export default function PDFToImageInterface() {
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
 
+      setStatusLevel(5);
       setProgress(100);
       setStatus("done");
     } catch (err: any) {
       console.error("PDF Conversion Error:", err);
       setError(err.message || 'Failed to convert PDF. Please try again.');
       setStatus("error");
+      setProgress(0);
+      setStatusLevel(1);
     } finally {
       processingRef.current = false;
     }
@@ -139,16 +149,11 @@ export default function PDFToImageInterface() {
             )}
 
             {status === "processing" && (
-              <div className="glass p-12 rounded-[2.5rem] text-center space-y-8 max-w-xl mx-auto border border-dashed border-primary/20">
-                <div className="w-20 h-20 rounded-full border-4 border-slate-100 dark:border-slate-800 border-t-primary animate-spin mx-auto" />
-                <div>
-                  <h4 className="text-2xl font-black text-slate-900 dark:text-white mb-2 italic">Converting Pages...</h4>
-                  <div className="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-4">
-                    <motion.div className="h-full bg-primary" initial={{ width: 0 }} animate={{ width: `${progress}%` }} transition={{ duration: 0.5 }} />
-                  </div>
-                  <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">{progress}% Complete</p>
-                </div>
-              </div>
+              <ProgressStatus 
+                level={statusLevel} 
+                progress={progress} 
+                isClientSide={false}
+              />
             )}
 
             {status === "done" && (

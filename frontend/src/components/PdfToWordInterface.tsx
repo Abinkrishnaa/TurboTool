@@ -4,6 +4,7 @@ import React, { useState, useRef } from 'react';
 import { FileText, Download, ArrowRight, Shield, Zap, FileCheck, Loader2, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { API_ENDPOINTS } from '@/utils/apiConfig';
+import ProgressStatus from './ProgressStatus';
 
 export default function PdfToWordInterface() {
   const [file, setFile] = useState<File | null>(null);
@@ -11,6 +12,7 @@ export default function PdfToWordInterface() {
   const [isComplete, setIsComplete] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
+  const [statusLevel, setStatusLevel] = useState<1 | 2 | 3 | 4 | 5>(1);
   const processingRef = useRef(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,6 +30,7 @@ export default function PdfToWordInterface() {
       setError(null);
       setIsComplete(false);
       setProgress(0);
+      setStatusLevel(1);
     }
   };
 
@@ -37,12 +40,14 @@ export default function PdfToWordInterface() {
     processingRef.current = true;
     setIsProcessing(true);
     setError(null);
+    setStatusLevel(1);
     setProgress(10);
 
     try {
       const formData = new FormData();
       formData.append('file', file);
 
+      setStatusLevel(2);
       setProgress(30);
 
       const response = await fetch(API_ENDPOINTS.pdfToWord, {
@@ -50,6 +55,7 @@ export default function PdfToWordInterface() {
         body: formData,
       });
 
+      setStatusLevel(3);
       setProgress(70);
 
       if (!response.ok) {
@@ -57,6 +63,7 @@ export default function PdfToWordInterface() {
         throw new Error(errorData.detail || `Server error: ${response.status}`);
       }
 
+      setStatusLevel(4);
       setProgress(90);
 
       // Get the blob and trigger download
@@ -70,11 +77,14 @@ export default function PdfToWordInterface() {
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
 
+      setStatusLevel(5);
       setProgress(100);
       setIsComplete(true);
     } catch (err: any) {
       console.error('PDF Conversion Error:', err);
       setError(err.message || 'Failed to convert PDF. Please try again.');
+      setProgress(0);
+      setStatusLevel(1);
     } finally {
       setIsProcessing(false);
       processingRef.current = false;
@@ -86,6 +96,7 @@ export default function PdfToWordInterface() {
     setIsComplete(false);
     setError(null);
     setProgress(0);
+    setStatusLevel(1);
     processingRef.current = false;
   };
 
@@ -168,23 +179,11 @@ export default function PdfToWordInterface() {
           </button>
 
           {isProcessing && (
-            <motion.div 
-              initial={{ opacity: 0 }} 
-              animate={{ opacity: 1 }}
-              className="space-y-2"
-            >
-              <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-                <motion.div 
-                  initial={{ width: "0%" }}
-                  animate={{ width: `${progress}%` }}
-                  transition={{ duration: 0.5 }}
-                  className="h-full bg-orange-600"
-                />
-              </div>
-              <p className="text-[10px] text-slate-400 text-center font-bold uppercase tracking-widest">
-                Converting: {progress}%
-              </p>
-            </motion.div>
+            <ProgressStatus 
+              level={statusLevel} 
+              progress={progress} 
+              isClientSide={false}
+            />
           )}
         </div>
       )}

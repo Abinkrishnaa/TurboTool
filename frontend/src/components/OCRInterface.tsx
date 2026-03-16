@@ -5,6 +5,7 @@ import Dropzone from "@/components/Dropzone";
 import { Copy, Check, RefreshCw, FileText, Image as ImageIcon, Sparkles, Download, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { createWorker } from "tesseract.js";
+import ProgressStatus from "./ProgressStatus";
 
 export default function OCRInterface() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -13,6 +14,7 @@ export default function OCRInterface() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
   const [status, setStatus] = useState("");
+  const [statusLevel, setStatusLevel] = useState<1 | 2 | 3 | 4 | 5>(1);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -25,6 +27,7 @@ export default function OCRInterface() {
     setExtractedText("");
     setProgress(0);
     setStatus("");
+    setStatusLevel(1);
   }, [selectedFile]);
 
   const handleFileSelect = (file: File) => {
@@ -32,6 +35,7 @@ export default function OCRInterface() {
     setExtractedText("");
     setProgress(0);
     setStatus("");
+    setStatusLevel(1);
   };
 
   const processImage = async () => {
@@ -40,14 +44,19 @@ export default function OCRInterface() {
     setIsProcessing(true);
     setExtractedText("");
     setProgress(0);
+    setStatusLevel(1);
     setStatus("Initializing OCR engine...");
 
     try {
       const worker = await createWorker('eng', 1, {
         logger: (m) => {
           if (m.status === "recognizing text") {
-            setProgress(Math.round(m.progress * 100));
-            setStatus(`Extracting text: ${Math.round(m.progress * 100)}%`);
+            const p = Math.round(m.progress * 100);
+            setProgress(p);
+            setStatus(`Extracting text: ${p}%`);
+            if (p > 30) setStatusLevel(2);
+            if (p > 60) setStatusLevel(3);
+            if (p > 90) setStatusLevel(4);
           } else {
             setStatus(m.status.charAt(0).toUpperCase() + m.status.slice(1) + "...");
           }
@@ -57,10 +66,13 @@ export default function OCRInterface() {
       const { data: { text } } = await worker.recognize(selectedFile);
       setExtractedText(text);
       await worker.terminate();
+      setStatusLevel(5);
       setStatus("Extraction complete!");
     } catch (error) {
       console.error(error);
       setStatus("Error: Failed to extract text.");
+      setStatusLevel(1);
+      setProgress(0);
       alert("OCR processing failed. Please ensure the image contains clear text.");
     } finally {
       setIsProcessing(false);
@@ -118,19 +130,12 @@ export default function OCRInterface() {
                 )}
 
                 {isProcessing && (
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between text-sm font-bold text-slate-500 uppercase tracking-widest">
-                      <span>{status}</span>
-                      <span>{progress}%</span>
-                    </div>
-                    <div className="h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700">
-                      <motion.div 
-                        initial={{ width: 0 }}
-                        animate={{ width: `${progress}%` }}
-                        className="h-full bg-gradient-to-r from-primary to-indigo-500 shadow-lg shadow-primary/30"
-                      />
-                    </div>
-                  </div>
+                  <ProgressStatus 
+                    level={statusLevel} 
+                    progress={progress} 
+                    isClientSide={true}
+                    customMessage={status}
+                  />
                 )}
               </div>
 

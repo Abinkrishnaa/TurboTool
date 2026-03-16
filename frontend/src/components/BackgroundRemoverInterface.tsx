@@ -14,6 +14,7 @@ import { removeBackground as imglyRemoveBackground } from "@imgly/background-rem
 import imageCompression from "browser-image-compression";
 import Dropzone from "./Dropzone";
 import { downloadBlob, isMobileDevice } from "@/utils/download";
+import ProgressStatus from "./ProgressStatus";
 
 export default function BackgroundRemoverInterface() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -22,6 +23,7 @@ export default function BackgroundRemoverInterface() {
   const [processedImage, setProcessedImage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [progress, setProgress] = useState(0);
+  const [statusLevel, setStatusLevel] = useState<1 | 2 | 3 | 4 | 5>(1);
   const [retryCount, setRetryCount] = useState(0);
 
   const handleFileSelect = (file: File) => {
@@ -29,6 +31,7 @@ export default function BackgroundRemoverInterface() {
     setStatus("idle");
     setProcessedImage(null);
     setProgress(0);
+    setStatusLevel(1);
     if (previewUrl) URL.revokeObjectURL(previewUrl);
     setPreviewUrl(URL.createObjectURL(file));
   };
@@ -37,6 +40,7 @@ export default function BackgroundRemoverInterface() {
     if (!selectedFile) return;
 
     setStatus(isRetry ? "optimizing" : "optimizing");
+    setStatusLevel(1);
     setProgress(0);
     if (!isRetry) setRetryCount(0);
     
@@ -83,17 +87,21 @@ export default function BackgroundRemoverInterface() {
       }
 
       setStatus("processing");
+      setStatusLevel(2);
       const processedBlob = await imglyRemoveBackground(fileToProcess, {
         progress: (key, current, total) => {
           const p = Math.round((current / total) * 100);
           setProgress(p);
+          if (p > 50) setStatusLevel(3);
         },
         model: "isnet_fp16",
       });
       
       const url = URL.createObjectURL(processedBlob);
       setProcessedImage(url);
+      setStatusLevel(4);
       setStatus("done");
+      setStatusLevel(5);
       setRetryCount(0);
     } catch (err: any) {
       console.error("Background Removal Error:", err);
@@ -118,6 +126,8 @@ export default function BackgroundRemoverInterface() {
       }
       setErrorMessage(msg);
       setStatus("error");
+      setStatusLevel(1);
+      setProgress(0);
     }
   };
 
@@ -138,6 +148,8 @@ export default function BackgroundRemoverInterface() {
     setProcessedImage(null);
     setStatus("idle");
     setErrorMessage("");
+    setProgress(0);
+    setStatusLevel(1);
   };
 
   return (
@@ -183,28 +195,20 @@ export default function BackgroundRemoverInterface() {
                 )}
 
                 {status === "optimizing" && (
-                  <div className="space-y-4 py-4 text-center">
-                    <RefreshCw className="w-6 h-6 mx-auto text-indigo-500 animate-spin" />
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                      {retryCount > 0 ? "Memory Recovery: Re-scaling..." : "Optimizing for Mobile..."}
-                    </p>
-                  </div>
+                  <ProgressStatus 
+                    level={1} 
+                    progress={progress} 
+                    isClientSide={true}
+                    customMessage={retryCount > 0 ? "Memory recovery: Re-scaling..." : "Preparing your file..."}
+                  />
                 )}
 
                 {status === "processing" && (
-                  <div className="space-y-4">
-                    <div className="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                      <motion.div 
-                        className="h-full bg-indigo-600 dark:bg-indigo-400" 
-                        initial={{ width: 0 }} 
-                        animate={{ width: `${progress}%` }} 
-                        transition={{ duration: 0.3 }}
-                      />
-                    </div>
-                    <p className="text-center text-[10px] font-bold text-slate-400 uppercase tracking-widest animate-pulse">
-                      {progress < 100 ? `AI Processing: ${progress}%` : "Finalizing pixels..."}
-                    </p>
-                  </div>
+                  <ProgressStatus 
+                    level={statusLevel} 
+                    progress={progress} 
+                    isClientSide={true}
+                  />
                 )}
 
                 {status === "done" && processedImage && (
