@@ -49,7 +49,7 @@ export default function Home() {
             {/* Massive Logo & Brand Name */}
             <div className="relative group mb-10 md:mb-16">
               <div className="absolute -inset-8 bg-primary/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-              <Logo size="massive" className="relative scale-90 md:scale-100" />
+              <Logo size="massive" className="relative" />
             </div>
 
             <h1 className="text-4xl md:text-9xl font-display font-black text-slate-900 dark:text-white mb-6 md:mb-8 tracking-tighter leading-[0.9] md:leading-[0.85] text-balance max-w-5xl">

@@ -41,7 +41,7 @@ export default function Navbar() {
         {/* Left: Logo */}
         <div className="flex-1 flex justify-start">
           <Link href="/">
-            <Logo showText={true} />
+            <Logo showText={true} size="large" />
           </Link>
         </div>
 
