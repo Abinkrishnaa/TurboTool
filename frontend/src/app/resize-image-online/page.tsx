@@ -1,13 +1,15 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { TOOLS } from "@/constants/tools";
 import ToolLayout from "@/components/ToolLayout";
 import Dropzone from "@/components/Dropzone";
 import { Download, X, Maximize, RefreshCw, AlertCircle, Settings2, Lock, Unlock, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import WorkflowNavigator from "@/components/WorkflowNavigator";
-import { getPendingFile, clearPendingFile } from "@/utils/filePersist";import { useSearchParams } from "next/navigation";
+import { getPendingFile, clearPendingFile } from "@/utils/filePersist";
+import { downloadBlob } from "@/utils/download";
+import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import EducationalContent from "@/components/EducationalContent";
@@ -20,7 +22,6 @@ function ImageResizerContent() {
   const [originalDimensions, setOriginalDimensions] = useState({ width: 0, height: 0 });
   const [lockAspectRatio, setLockAspectRatio] = useState(true);
   const [status, setStatus] = useState<"idle" | "processing" | "done" | "error">("idle");
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const searchParams = useSearchParams();
   const [resizedFile, setResizedFile] = useState<File | null>(null);
 
@@ -82,16 +83,20 @@ function ImageResizerContent() {
   };
 
   const resizeImage = () => {
-    if (!selectedFile || !canvasRef.current || !previewUrl) return;
+    if (!selectedFile || !previewUrl) return;
     setStatus("processing");
 
     const img = new Image();
-    img.src = previewUrl; // Use already existing preview URL
+    img.src = previewUrl;
     img.onload = () => {
-      const canvas = canvasRef.current!;
+      const canvas = document.createElement("canvas");
       canvas.width = dimensions.width;
       canvas.height = dimensions.height;
-      const ctx = canvas.getContext("2d")!;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        setStatus("error");
+        return;
+      }
       ctx.drawImage(img, 0, 0, dimensions.width, dimensions.height);
       
       canvas.toBlob((blob) => {
@@ -99,21 +104,19 @@ function ImageResizerContent() {
           const file = new File([blob], selectedFile.name, { type: selectedFile.type });
           setResizedFile(file);
           setStatus("done");
+        } else {
+          setStatus("error");
         }
-      }, selectedFile.type, 0.95); // High quality
+      }, selectedFile.type, 0.95);
+    };
+    img.onerror = () => {
+      setStatus("error");
     };
   };
 
-  const downloadImage = () => {
-    if (!resizedFile) return;
-    const url = URL.createObjectURL(resizedFile);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `resized-${selectedFile?.name}`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    setTimeout(() => URL.revokeObjectURL(url), 100);
+  const downloadImage = async () => {
+    if (!resizedFile || !selectedFile) return;
+    await downloadBlob(resizedFile, `resized-${selectedFile.name}`);
   };
 
   const reset = () => {
@@ -246,7 +249,6 @@ function ImageResizerContent() {
                           <Download className="w-6 h-6" />
                           <span>Download Image</span>
                         </button>
-                        <canvas ref={canvasRef} className="hidden" />
                         <WorkflowNavigator currentToolId="resizer" activeFile={resizedFile} />
                       </div>
                     )}

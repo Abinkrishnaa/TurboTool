@@ -29,7 +29,7 @@ export default function DashboardLayout({ children, toolName }: DashboardLayoutP
 
         <footer className="px-12 py-8 border-t border-[#F1F1F1] dark:border-slate-800 text-center">
           <p className="text-[11px] font-bold text-slate-300 dark:text-slate-600 uppercase tracking-widest">
-            © 2026 TurboTool • Privacy-first online utilities
+            © 2026 Auxkit • Privacy-first online utilities
           </p>
         </footer>
       </div>

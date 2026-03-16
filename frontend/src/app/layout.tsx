@@ -25,47 +25,47 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "TurboTool - Professional Free Online Utilities",
-    template: "%s | TurboTool",
+    default: "Auxkit - Professional Free Online Utilities",
+    template: "%s | Auxkit",
   },
   description: "Fast, privacy-first tools that run directly in your browser. Compress images, format JSON, count words, and more without any data leaving your device.",
   keywords: ["online tools", "privacy first", "free utilities", "image compressor", "json formatter", "developer tools"],
-  authors: [{ name: "TurboTool Team" }],
-  creator: "TurboTool",
-  publisher: "TurboTool",
+  authors: [{ name: "Auxkit Team" }],
+  creator: "Auxkit",
+  publisher: "Auxkit",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://TurboTool.com"),
+  metadataBase: new URL("https://Auxkit.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://TurboTool.com",
-    siteName: "TurboTool",
-    title: "TurboTool - Professional Free Online Utilities",
+    url: "https://Auxkit.com",
+    siteName: "Auxkit",
+    title: "Auxkit - Professional Free Online Utilities",
     description: "Fast, privacy-first tools that run directly in your browser.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "TurboTool - Professional Free Online Utilities",
+        alt: "Auxkit - Professional Free Online Utilities",
       },
     ],
   },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "TurboTool",
+    title: "Auxkit",
   },
   twitter: {
     card: "summary_large_image",
-    title: "TurboTool - Professional Free Online Utilities",
+    title: "Auxkit - Professional Free Online Utilities",
     description: "Fast, privacy-first tools that run directly in your browser.",
     images: ["/og-image.png"],
     creator: "@turbotool",
@@ -97,27 +97,27 @@ export default function RootLayout({
     "@graph": [
       {
         "@type": "WebSite",
-        "@id": "https://TurboTool.com/#website",
-        "url": "https://TurboTool.com",
-        "name": "TurboTools",
+        "@id": "https://Auxkit.com/#website",
+        "url": "https://Auxkit.com",
+        "name": "Auxkits",
         "description": "Professional, privacy-first web utilities and productivity tools.",
         "publisher": {
-          "@id": "https://TurboTool.com/#organization"
+          "@id": "https://Auxkit.com/#organization"
         },
         "potentialAction": {
           "@type": "SearchAction",
-          "target": "https://TurboTool.com/search?q={search_term_string}",
+          "target": "https://Auxkit.com/search?q={search_term_string}",
           "query-input": "required name=search_term_string"
         }
       },
       {
         "@type": "Organization",
-        "@id": "https://TurboTool.com/#organization",
-        "name": "TurboTools",
-        "url": "https://TurboTool.com",
+        "@id": "https://Auxkit.com/#organization",
+        "name": "Auxkits",
+        "url": "https://Auxkit.com",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://TurboTool.com/icon.png"
+          "url": "https://Auxkit.com/icon.png"
         },
         "contactPoint": {
           "@type": "ContactPoint",

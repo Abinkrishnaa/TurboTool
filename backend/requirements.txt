@@ -1,0 +1,11 @@
+# PDF Conversion Dependencies
+pdf2docx>=0.5.8
+PyMuPDF>=1.24.0
+
+# FastAPI Server
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
+python-multipart>=0.0.9
+
+# Image Processing
+Pillow>=10.0.0

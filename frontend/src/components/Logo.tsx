@@ -36,7 +36,7 @@ export default function Logo({ className = "", showText = true, size = "default"
       <div className={`relative flex items-center justify-center ${currentSize.img} transition-all duration-300`}>
         <Image
           src="/brand/logo.png"
-          alt="TurboTool Logo"
+          alt="Auxkit Logo"
           width={128}
           height={128}
           className={`object-contain w-full h-full transform group-hover:scale-105 transition-transform duration-500 ${
@@ -52,7 +52,7 @@ export default function Logo({ className = "", showText = true, size = "default"
           <span className={`${currentSize.text} font-display font-black tracking-tighter ${
             isGrayscale ? "text-slate-400 dark:text-slate-500" : "text-[#111] dark:text-white"
           }`}>
-            Turbo<span className={isGrayscale ? "" : "text-indigo-600 dark:text-indigo-400"}>Tool</span>
+            Auxkit
           </span>
           <span className={`${currentSize.subtext} font-bold uppercase tracking-[0.4em] text-slate-400 mt-1`}>
             {isGrayscale ? "Speed & Privacy" : "Speed & Efficiency"}
