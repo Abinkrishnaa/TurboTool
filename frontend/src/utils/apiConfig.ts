@@ -4,6 +4,7 @@ export const API_ENDPOINTS = {
   pdfToWord: `${API_BASE}/api/pdf-to-word`,
   pdfToImage: `${API_BASE}/api/pdf-to-image`,
   wordToPdf: `${API_BASE}/api/word-to-pdf`,
+  removeBackground: `${API_BASE}/api/remove-background`,
 };
 
 export async function uploadFileToAPI<T>(
