@@ -8,4 +8,5 @@ services:
     envVars:
       - key: CORS_ORIGIN
         value: https://auxkit-frontend.vercel.app
-    pythonVersion: "3.11"
+      - key: PYTHON_VERSION
+        value: "3.11"
