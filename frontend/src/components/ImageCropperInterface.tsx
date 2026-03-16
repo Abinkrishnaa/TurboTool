@@ -119,17 +119,18 @@ export default function ImageCropperInterface() {
             <Dropzone onFileSelect={handleFileSelect} label="Upload Image to Crop" />
           </motion.div>
         ) : (
-          <motion.div key="interface" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="p-8 md:p-12">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              <div className="space-y-6">
+          <motion.div key="interface" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="p-4 md:p-8 lg:p-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12">
+              <div className="space-y-4 md:space-y-6">
                 <div 
                   ref={containerRef}
                   className="relative rounded-3xl overflow-hidden bg-slate-50 dark:bg-slate-800 flex items-center justify-center border-2 border-slate-100 dark:border-slate-800 cursor-move shadow-inner"
                   style={{ 
                     aspectRatio: isNaN(aspectRatio.value) ? '4 / 3' : `${aspectRatio.value}`,
                     width: '100%',
-                    maxWidth: '450px',
-                    margin: '0 auto'
+                    maxWidth: '100%',
+                    margin: '0 auto',
+                    minHeight: '50vh'
                   }}
                   onMouseDown={(e) => {
                     const startX = e.clientX - offset.x;

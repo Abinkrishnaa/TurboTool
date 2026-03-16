@@ -7,7 +7,8 @@ import {
   Sparkles, 
   CheckCircle, 
   Download,
-  Cpu
+  Cpu,
+  RefreshCw
 } from "lucide-react";
 
 interface ProgressStatusProps {
@@ -15,16 +16,29 @@ interface ProgressStatusProps {
   progress: number;
   customMessage?: string;
   isClientSide?: boolean;
+  isHeicConverting?: boolean;
 }
 
 export default function ProgressStatus({ 
   level, 
   progress, 
   customMessage,
-  isClientSide = false 
+  isClientSide = false,
+  isHeicConverting = false
 }: ProgressStatusProps) {
   
   const getStatusConfig = () => {
+    if (isHeicConverting) {
+      return {
+        icon: RefreshCw,
+        message: "Converting HEIC image...",
+        color: "text-purple-600 dark:text-purple-400",
+        bgColor: "bg-purple-50 dark:bg-purple-900/20",
+        borderColor: "border-purple-200 dark:border-purple-800",
+        progressColor: "bg-purple-600",
+      };
+    }
+
     const baseConfig = {
       1: {
         icon: Cpu,
@@ -87,7 +101,7 @@ export default function ProgressStatus({
       className={`w-full p-3 md:p-4 rounded-xl border-2 ${config.bgColor} ${config.borderColor}`}
     >
       <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-3">
-        <Icon className={`w-4 h-4 md:w-5 md:h-5 ${config.color} ${level === 3 ? 'animate-spin' : ''}`} />
+        <Icon className={`w-4 h-4 md:w-5 md:h-5 ${config.color} ${(level === 3 || isHeicConverting) ? 'animate-spin' : ''}`} />
         <span className={`text-sm md:text-base font-medium ${config.color}`}>
           {customMessage || config.message}
         </span>
