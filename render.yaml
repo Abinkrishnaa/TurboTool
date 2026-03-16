@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: auxkit-backend
+    env: python
+    rootDir: backend
+    buildCommand: bash build.sh && pip install -r requirements.txt
+    startCommand: uvicorn app.api:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: CORS_ORIGIN
+        value: https://auxkit-frontend.vercel.app
+    pythonVersion: "3.11"
