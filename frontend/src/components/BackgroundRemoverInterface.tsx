@@ -15,6 +15,7 @@ import imageCompression from "browser-image-compression";
 import Dropzone from "./Dropzone";
 import { downloadBlob, isMobileDevice } from "@/utils/download";
 import { isIOS, isSafari, getDeviceOptimizationLevel } from "@/utils/heicUtils";
+import { API_ENDPOINTS } from "@/utils/apiConfig";
 import ProgressStatus from "./ProgressStatus";
 
 export default function BackgroundRemoverInterface() {
@@ -26,6 +27,7 @@ export default function BackgroundRemoverInterface() {
   const [progress, setProgress] = useState(0);
   const [statusLevel, setStatusLevel] = useState<1 | 2 | 3 | 4 | 5>(1);
   const [retryCount, setRetryCount] = useState(0);
+  const [triedBackendFallback, setTriedBackendFallback] = useState(false);
 
   const handleFileSelect = (file: File) => {
     setSelectedFile(file);
@@ -34,6 +36,7 @@ export default function BackgroundRemoverInterface() {
     setProgress(0);
     setStatusLevel(1);
     setRetryCount(0);
+    setTriedBackendFallback(false);
     if (previewUrl) URL.revokeObjectURL(previewUrl);
     setPreviewUrl(URL.createObjectURL(file));
   };
@@ -117,6 +120,12 @@ export default function BackgroundRemoverInterface() {
         removeBackground(true); 
         return;
       }
+      
+      if (!triedBackendFallback) {
+        console.log("Client-side processing failed. Trying server-side fallback...");
+        tryBackendFallback();
+        return;
+      }
 
       const isMobile = isMobileDevice();
       let msg = isMobile 
@@ -128,6 +137,55 @@ export default function BackgroundRemoverInterface() {
           : "Device memory limit reached. Try a significantly smaller or cropped image.";
       }
       setErrorMessage(msg);
+      setStatus("error");
+      setStatusLevel(1);
+      setProgress(0);
+    }
+  };
+
+  const tryBackendFallback = async () => {
+    if (!selectedFile || triedBackendFallback) return;
+    
+    setTriedBackendFallback(true);
+    setStatus("processing");
+    setStatusLevel(2);
+    setProgress(10);
+    setErrorMessage("");
+    
+    try {
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+      
+      setStatusLevel(2);
+      setProgress(30);
+      
+      const response = await fetch(API_ENDPOINTS.removeBackground, {
+        method: 'POST',
+        body: formData,
+      });
+      
+      setStatusLevel(3);
+      setProgress(70);
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ detail: 'Server processing failed' }));
+        throw new Error(errorData.detail || `Server error: ${response.status}`);
+      }
+      
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      setProcessedImage(url);
+      setStatusLevel(4);
+      setStatus("done");
+      setStatusLevel(5);
+    } catch (err: any) {
+      console.error("Backend Fallback Error:", err);
+      const isMobile = isMobileDevice();
+      setErrorMessage(
+        isMobile 
+          ? "Server processing also failed. Please try a much smaller image or use a desktop computer."
+          : "Server processing also failed. Please try a smaller image."
+      );
       setStatus("error");
       setStatusLevel(1);
       setProgress(0);
@@ -153,6 +211,8 @@ export default function BackgroundRemoverInterface() {
     setErrorMessage("");
     setProgress(0);
     setStatusLevel(1);
+    setRetryCount(0);
+    setTriedBackendFallback(false);
   };
 
   return (

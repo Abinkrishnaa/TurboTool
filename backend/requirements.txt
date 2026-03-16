@@ -9,3 +9,6 @@ python-multipart>=0.0.9
 
 # Image Processing
 Pillow>=10.0.0
+
+# Background Removal (CPU version - no GPU needed)
+rembg[cpu]>=2.0.50

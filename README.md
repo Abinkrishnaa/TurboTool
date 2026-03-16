@@ -36,6 +36,7 @@ A comprehensive collection of free online tools for images, documents, and produ
 | Styling | Tailwind CSS, Framer Motion |
 | Deployment | Vercel (Frontend), Render (Backend) |
 | Image Processing | @imgly/background-removal, browser-image-compression |
+| Background Removal | @imgly/background-removal (client), rembg (server) |
 | PDF Processing | PyMuPDF, pdf2docx, LibreOffice |
 | OCR | Tesseract.js |
 
@@ -97,7 +98,7 @@ cd backend
 pip install -r requirements.txt
 ```
 
-#### Option B: With Virtual Environment (Optional - Better for Isolating Dependencies)
+#### Option B: With Virtual Environment (venv)
 
 ```bash
 # Create virtual environment
@@ -113,6 +114,25 @@ source venv/bin/activate
 cd backend
 pip install -r requirements.txt
 ```
+
+#### Option C: With uv (Modern & Fast - Recommended)
+
+[uv](https://github.com/astral-sh/uv) is a fast, modern Python package installer written in Rust.
+
+```bash
+# Install uv (if not already)
+pip install uv
+
+# Create virtual environment and install dependencies
+cd backend
+uv venv
+uv pip install -r requirements.txt
+```
+
+**Why uv?**
+- 10-100x faster than pip
+- Built-in virtual environment support
+- Better dependency resolution
 
 ## Development
 
@@ -140,8 +160,18 @@ npm run dev
 
 ```bash
 cd backend
+uv run uvicorn app.api:app --reload --port 8000
+```
+
+Or with venv:
+
+```bash
+cd backend
+venv\Scripts\activate
 uvicorn app.api:app --reload --port 8000
 ```
+
+**Note:** The first time you run the backend, it will download the rembg AI model (~100MB).
 
 ## Environment Variables
 
@@ -165,6 +195,31 @@ GEMINI_API_KEY=your_gemini_api_key_here
 # For production (set in Render dashboard)
 CORS_ORIGIN=https://your-frontend.vercel.app
 ```
+
+## Testing Locally
+
+After setting up both frontend and backend:
+
+1. **Start Backend:**
+   ```bash
+   cd backend
+   uv run uvicorn app.api:app --reload
+   ```
+   Backend runs at: http://localhost:8000
+
+2. **Start Frontend:**
+   ```bash
+   cd frontend
+   npm run dev
+   ```
+   Frontend runs at: http://localhost:3000
+
+3. **Test the API:**
+   - Visit http://localhost:8000 to see API info
+   - Visit http://localhost:8000/health for health check
+   - Test remove-background endpoint with a sample image
+
+**First-time Setup:** The first time you run the backend, it will automatically download the rembg AI model (~100MB) for background removal.
 
 ## Deployment
 
@@ -226,6 +281,7 @@ The backend exposes these endpoints:
 | `/api/pdf-to-word` | POST | Convert PDF to Word |
 | `/api/pdf-to-image` | POST | Convert PDF to Images (ZIP) |
 | `/api/word-to-pdf` | POST | Convert Word to PDF |
+| `/api/remove-background` | POST | Remove image background (AI) |
 
 ## Building
 
@@ -263,6 +319,20 @@ docker run -p 8000:8000 auxkit-backend
 4. **ESLint Build Errors**
    - Run `npm run lint` to see all issues
    - ESLint rules are configured to warn instead of error in build
+
+5. **rembg "No onnxruntime backend found"**
+   - Make sure you installed `rembg[cpu]` in requirements.txt
+   - Reinstall: `uv pip install -r requirements.txt`
+
+### uv Quick Reference
+
+| Task | Command |
+|------|---------|
+| Create venv | `uv venv` |
+| Install packages | `uv pip install -r requirements.txt` |
+| Run server | `uv run uvicorn app.api:app --reload` |
+| Add package | `uv pip install package-name` |
+| Update packages | `uv pip install -r requirements.txt --refresh` |
 
 ### Development Tips
 

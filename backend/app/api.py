@@ -13,6 +13,18 @@ from fastapi.responses import StreamingResponse
 
 from pdf2docx import Converter
 import fitz  # PyMuPDF
+from rembg import remove, new_session
+
+
+# Global session for rembg (created once for better performance)
+REMbg_SESSION = None
+
+def get_rembg_session():
+    """Get or create the rembg session with the best model (bria-rmbg)"""
+    global REMbg_SESSION
+    if REMbg_SESSION is None:
+        REMbg_SESSION = new_session("bria-rmbg")
+    return REMbg_SESSION
 
 
 # Get CORS origins from environment variable
@@ -308,6 +320,77 @@ async def convert_word_to_pdf(file: UploadFile = File(...)):
                 shutil.rmtree(temp_dir)
             if os.path.exists(output_dir):
                 shutil.rmtree(output_dir)
+        except Exception:
+            pass
+
+
+@app.post("/api/remove-background")
+async def remove_background(file: UploadFile = File(...)):
+    """Remove image background using rembg (Python AI) - CPU version"""
+    
+    if not file.filename:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="No file provided"
+        )
+    
+    valid_extensions = ['.jpg', '.jpeg', '.png', '.webp', '.bmp', '.gif']
+    file_ext = os.path.splitext(file.filename)[1].lower()
+    if file_ext not in valid_extensions:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Unsupported file format. Supported: {', '.join(valid_extensions)}"
+        )
+    
+    temp_dir = tempfile.mkdtemp()
+    
+    try:
+        input_path = os.path.join(temp_dir, file.filename)
+        output_path = os.path.join(temp_dir, f"removed_{file.filename.rsplit('.', 1)[0]}.png")
+        
+        with open(input_path, "wb") as buffer:
+            content = await file.read()
+            if len(content) > 10 * 1024 * 1024:
+                raise HTTPException(
+                    status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
+                    detail="File too large. Maximum size is 10MB"
+                )
+            buffer.write(content)
+        
+        from PIL import Image
+        input_image = Image.open(input_path)
+        
+        # Use session with best model (bria-rmbg) for better performance
+        session = get_rembg_session()
+        output_image = remove(input_image, session=session)
+        
+        output_image.save(output_path)
+        
+        with open(output_path, "rb") as f:
+            output_data = f.read()
+        
+        output_filename = f"auxkit-removed-bg-{int(os.path.getmtime(output_path))}.png"
+        
+        return StreamingResponse(
+            io.BytesIO(output_data),
+            media_type="image/png",
+            headers={
+                "Content-Disposition": f"attachment; filename={output_filename}"
+            }
+        )
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Background removal failed: {str(e)}"
+        )
+    
+    finally:
+        try:
+            if os.path.exists(temp_dir):
+                shutil.rmtree(temp_dir)
         except Exception:
             pass
 
