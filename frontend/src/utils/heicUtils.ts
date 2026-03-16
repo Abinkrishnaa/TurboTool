@@ -1,5 +1,3 @@
-import heic2any from "heic2any";
-
 export function isHEIC(file: File): boolean {
   const fileName = file.name.toLowerCase();
   return fileName.endsWith('.heic') || fileName.endsWith('.heif');
@@ -29,6 +27,9 @@ export async function convertHeicToJpeg(file: File): Promise<File> {
   }
 
   try {
+    // Dynamic import to avoid SSR issues
+    const heic2any = (await import("heic2any")).default;
+    
     const converted = await heic2any({
       blob: file,
       toType: "image/jpeg",
@@ -54,6 +55,15 @@ export function getDeviceOptimizationLevel(): {
   maxDimension: number;
   useAggressive: boolean;
 } {
+  // Return safe defaults for SSR
+  if (typeof window === 'undefined') {
+    return {
+      maxSizeMB: 2,
+      maxDimension: 2048,
+      useAggressive: false
+    };
+  }
+  
   const isIOSDevice = isIOS();
   const isMobile = isMobileDevice();
   const isSafariBrowser = isSafari();
