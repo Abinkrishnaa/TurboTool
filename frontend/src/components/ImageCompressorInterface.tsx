@@ -9,6 +9,7 @@ import { getPendingFile, clearPendingFile, savePendingFile } from "@/utils/fileP
 import WorkflowNavigator from "@/components/WorkflowNavigator";
 import ImageComparisonSlider from "@/components/ImageComparisonSlider";
 import { downloadBlob, isMobileDevice } from "@/utils/download";
+import { isIOS, isSafari, getDeviceOptimizationLevel } from "@/utils/heicUtils";
 import ProgressStatus from "./ProgressStatus";
 
 export default function ImageCompressorInterface() {
@@ -39,12 +40,26 @@ export default function ImageCompressorInterface() {
     setStatusLevel(1);
     setProgress(10);
 
+    const isIOSDevice = isIOS();
+    const isSafariBrowser = isSafari();
     const isMobile = isMobileDevice();
+    const optimization = getDeviceOptimizationLevel();
+    
+    // Use optimized settings from heicUtils
+    let maxSizeMB = isMobile ? Math.min(target, optimization.maxSizeMB) : target;
+    let maxDimension = isMobile ? Math.min(optimization.maxDimension, isSafariBrowser ? 800 : 1200) : 1920;
+
+    // More aggressive for Safari
+    if (isSafariBrowser) {
+      maxSizeMB = Math.min(maxSizeMB, 0.3);
+      maxDimension = Math.min(maxDimension, 800);
+    }
+
     const isSmallerThanTarget = fileToCompress.size / (1024 * 1024) <= target;
     
     const options = {
-      maxSizeMB: isMobile ? Math.min(target, 0.8) : target,
-      maxWidthOrHeight: isMobile ? 1200 : 1920,
+      maxSizeMB: maxSizeMB,
+      maxWidthOrHeight: maxDimension,
       useWebWorker: true,
       onProgress: (p: number) => {
         setProgress(p);
@@ -66,8 +81,8 @@ export default function ImageCompressorInterface() {
       setProgress(100);
     } catch (error: any) {
       console.error("Compression error:", error);
-      setErrorMessage(isMobileDevice() 
-        ? "Processing failed. Please try a smaller image (under 2MB)." 
+      setErrorMessage(isMobile 
+        ? "Processing failed. Please try a smaller image (under 1MB for mobile)." 
         : "Compression failed. Please try again.");
       setStatus("error");
       setStatusLevel(1);

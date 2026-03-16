@@ -14,6 +14,7 @@ import { removeBackground as imglyRemoveBackground } from "@imgly/background-rem
 import imageCompression from "browser-image-compression";
 import Dropzone from "./Dropzone";
 import { downloadBlob, isMobileDevice } from "@/utils/download";
+import { isIOS, isSafari, getDeviceOptimizationLevel } from "@/utils/heicUtils";
 import ProgressStatus from "./ProgressStatus";
 
 export default function BackgroundRemoverInterface() {
@@ -32,6 +33,7 @@ export default function BackgroundRemoverInterface() {
     setProcessedImage(null);
     setProgress(0);
     setStatusLevel(1);
+    setRetryCount(0);
     if (previewUrl) URL.revokeObjectURL(previewUrl);
     setPreviewUrl(URL.createObjectURL(file));
   };
@@ -48,28 +50,29 @@ export default function BackgroundRemoverInterface() {
       // 1. Mobile Optimization: Pre-scale image if it's too large to save WebGL memory
       let fileToProcess = selectedFile;
       
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-      const isMobile = isIOS || /Android/i.test(navigator.userAgent);
+      const isIOSDevice = isIOS();
+      const isSafariBrowser = isSafari();
+      const isMobile = isMobileDevice();
 
-      // Multi-stage limits: Proactive for mobile, Aggressive for retries
-      let MAX_SIZE_MB = 1.2;
-      let MAX_DIM = 1600;
+      // Use device optimization levels from heicUtils
+      const optimization = getDeviceOptimizationLevel();
+      
+      let MAX_SIZE_MB = optimization.maxSizeMB;
+      let MAX_DIM = optimization.maxDimension;
 
-      if (isIOS) {
-        MAX_SIZE_MB = 0.6;
-        MAX_DIM = 1000;
-      } else if (isMobile) {
-        MAX_SIZE_MB = 0.8;
-        MAX_DIM = 1200;
+      // Additional restrictions for Safari (more aggressive)
+      if (isSafariBrowser) {
+        MAX_SIZE_MB = Math.min(MAX_SIZE_MB, 0.2);
+        MAX_DIM = Math.min(MAX_DIM, 640);
       }
 
       // Stage fallbacks based on retry count
       if (retryCount === 1) {
-        MAX_SIZE_MB = 0.4;
-        MAX_DIM = 800;
+        MAX_SIZE_MB = Math.min(MAX_SIZE_MB, 0.15);
+        MAX_DIM = Math.min(MAX_DIM, 500);
       } else if (retryCount >= 2) {
-        MAX_SIZE_MB = 0.2;
-        MAX_DIM = 640; // Total safety fallback
+        MAX_SIZE_MB = 0.1;
+        MAX_DIM = 400; // Total safety fallback
       }
       
       if (selectedFile.size > 0.2 * 1024 * 1024 || isMobile || retryCount > 0) { 

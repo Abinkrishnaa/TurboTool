@@ -5,15 +5,32 @@ import Dropzone from "@/components/Dropzone";
 import { Download, X, FileType, AlertCircle, FilePlus, RefreshCw } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { downloadBlob } from "@/utils/download";
+import { isHEIC, convertHeicToJpeg } from "@/utils/heicUtils";
 // jsPDF will be imported dynamically inside the function
 
 export default function ImageToPdfInterface() {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [status, setStatus] = useState<"idle" | "processing" | "done" | "error">("idle");
   const [resultBlob, setResultBlob] = useState<Blob | null>(null);
+  const [convertingIndex, setConvertingIndex] = useState<number | null>(null);
 
-  const handleFileSelect = (file: File) => {
-    setSelectedFiles(prev => [...prev, file]);
+  const handleFileSelect = async (file: File) => {
+    let processedFile = file;
+    
+    if (isHEIC(file)) {
+      setConvertingIndex(selectedFiles.length);
+      try {
+        processedFile = await convertHeicToJpeg(file);
+      } catch (error) {
+        console.error("HEIC conversion failed:", error);
+        alert("Failed to convert HEIC image. Please try a different format.");
+        setConvertingIndex(null);
+        return;
+      }
+      setConvertingIndex(null);
+    }
+    
+    setSelectedFiles(prev => [...prev, processedFile]);
     setStatus("idle");
     setResultBlob(null);
   };
@@ -34,7 +51,19 @@ export default function ImageToPdfInterface() {
       
       for (let i = 0; i < selectedFiles.length; i++) {
         const file = selectedFiles[i];
-        const imgData = await readFileAsDataURL(file);
+        
+        // Convert HEIC if needed
+        let fileToProcess = file;
+        if (isHEIC(file)) {
+          try {
+            fileToProcess = await convertHeicToJpeg(file);
+          } catch (error) {
+            console.error("HEIC conversion failed:", error);
+            continue;
+          }
+        }
+        
+        const imgData = await readFileAsDataURL(fileToProcess);
         
         const img = new Image();
         img.src = imgData;
