@@ -70,8 +70,7 @@ Turbotool/
 - **Node.js** 18.x or later
 - **Python** 3.11 or later
 - **Git**
-- **LibreOffice** (for local Word to PDF conversion)
-- **Docker** (optional, for backend containerization)
+- **LibreOffice** (for local Word to PDF conversion - optional)
 
 ## Installation
 
@@ -91,8 +90,17 @@ npm install
 
 ### 3. Backend Setup
 
+#### Option A: Direct Install (Recommended for Quick Setup)
+
 ```bash
-# Create virtual environment (recommended)
+cd backend
+pip install -r requirements.txt
+```
+
+#### Option B: With Virtual Environment (Optional - Better for Isolating Dependencies)
+
+```bash
+# Create virtual environment
 python -m venv venv
 
 # Activate on Windows
@@ -102,7 +110,7 @@ venv\Scripts\activate
 source venv/bin/activate
 
 # Install dependencies
-cd ../backend
+cd backend
 pip install -r requirements.txt
 ```
 
