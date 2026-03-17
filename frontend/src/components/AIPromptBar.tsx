@@ -123,7 +123,7 @@ export default function AIPromptBar() {
         } else if (lowerMsg.includes("time")) {
           responseText = `The current time is **${new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).format(new Date())}**.`;
         } else if (isGreeting) {
-          responseText = "Hello! I am **Auxkit AI**, your intelligent assistant. How can I help you be more productive today?";
+          responseText = "Hello! I am **AuxStrix AI**, your intelligent assistant. How can I help you be more productive today?";
         } else if (lowerMsg.includes("thank")) {
           responseText = "You're very welcome! Let me know if you need anything else.";
         }

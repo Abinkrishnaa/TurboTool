@@ -25,47 +25,47 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Auxkit - Professional Free Online Utilities",
-    template: "%s | Auxkit",
+    default: "AuxStrix - Professional Free Online Utilities",
+    template: "%s | AuxStrix",
   },
   description: "Fast, privacy-first tools that run directly in your browser. Compress images, format JSON, count words, and more without any data leaving your device.",
   keywords: ["online tools", "privacy first", "free utilities", "image compressor", "json formatter", "developer tools"],
-  authors: [{ name: "Auxkit Team" }],
-  creator: "Auxkit",
-  publisher: "Auxkit",
+  authors: [{ name: "AuxStrix Team" }],
+  creator: "AuxStrix",
+  publisher: "AuxStrix",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://Auxkit.com"),
+  metadataBase: new URL("https://auxkit.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://Auxkit.com",
-    siteName: "Auxkit",
-    title: "Auxkit - Professional Free Online Utilities",
+    url: "https://auxkit.com",
+    siteName: "AuxStrix",
+    title: "AuxStrix - Professional Free Online Utilities",
     description: "Fast, privacy-first tools that run directly in your browser.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Auxkit - Professional Free Online Utilities",
+        alt: "AuxStrix - Professional Free Online Utilities",
       },
     ],
   },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Auxkit",
+    title: "AuxStrix",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Auxkit - Professional Free Online Utilities",
+    title: "AuxStrix - Professional Free Online Utilities",
     description: "Fast, privacy-first tools that run directly in your browser.",
     images: ["/og-image.png"],
     creator: "@turbotool",
@@ -97,27 +97,27 @@ export default function RootLayout({
     "@graph": [
       {
         "@type": "WebSite",
-        "@id": "https://Auxkit.com/#website",
-        "url": "https://Auxkit.com",
-        "name": "Auxkits",
+        "@id": "https://auxkit.com/#website",
+        "url": "https://auxkit.com",
+        "name": "AuxStrix",
         "description": "Professional, privacy-first web utilities and productivity tools.",
         "publisher": {
-          "@id": "https://Auxkit.com/#organization"
+          "@id": "https://auxkit.com/#organization"
         },
         "potentialAction": {
           "@type": "SearchAction",
-          "target": "https://Auxkit.com/search?q={search_term_string}",
+          "target": "https://auxkit.com/search?q={search_term_string}",
           "query-input": "required name=search_term_string"
         }
       },
       {
         "@type": "Organization",
-        "@id": "https://Auxkit.com/#organization",
-        "name": "Auxkits",
-        "url": "https://Auxkit.com",
+        "@id": "https://auxkit.com/#organization",
+        "name": "AuxStrix",
+        "url": "https://auxkit.com",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://Auxkit.com/icon.png"
+          "url": "https://auxkit.com/icon.png"
         },
         "contactPoint": {
           "@type": "ContactPoint",
