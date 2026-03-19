@@ -1,52 +1,166 @@
-export default function PrivacyPolicy() {
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description: "Privacy Policy for Auxlify - Learn how we collect, use, and protect your data.",
+};
+
+export default function PrivacyPage() {
   return (
-    <div className="container mx-auto px-4 py-24 max-w-4xl">
-      <h1 className="text-4xl md:text-5xl font-display font-black text-slate-900 dark:text-white mb-8">Privacy Policy</h1>
-      <div className="prose prose-lg dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 space-y-8">
-        <section>
-          <p>
-            At <strong>TurboTool</strong>, your privacy is our top priority. This Privacy Policy outlines how we handle your data when you use our free online utilities.
-          </p>
-        </section>
+    <div className="min-h-screen bg-white dark:bg-slate-950">
+      <div className="max-w-4xl mx-auto px-6 py-16 md:py-24">
+        <Link 
+          href="/"
+          className="inline-flex items-center gap-2 text-slate-500 hover:text-primary mb-8 transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span className="text-sm font-medium">Back to Home</span>
+        </Link>
 
-        <section>
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">1. Local Processing (Privacy by Design)</h2>
-          <p>
-            The most important thing to know about TurboTool is that <strong>we do not upload your files, images, or text to our servers</strong>. All processing—including background removal, image compression, and text formatting—happens entirely within your web browser using modern technologies like WebAssembly, Canvas API, and Client-side AI libraries. Your data never leaves your device.
-          </p>
-        </section>
+        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-8">
+          Privacy Policy
+        </h1>
 
-        <section>
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">2. Information We Collect</h2>
-          <p>We believe in minimal data collection. We do not require account registration, and we do not collect any personal information (such as names, email addresses, or phone numbers) unless you explicitly provide them through our contact forms.</p>
-          <ul className="list-disc pl-6 space-y-2">
-            <li><strong>Usage Data:</strong> We use basic analytics tools (like Google Analytics) to understand which tools are most popular. This data is fully anonymized and helps us improve our service.</li>
-            <li><strong>Cookies:</strong> We use cookies to remember your theme preferences (Dark/Light mode) and to ensure the site functions correctly.</li>
-          </ul>
-        </section>
+        <p className="text-sm text-slate-500 mb-12">
+          Last updated: March 19, 2026
+        </p>
 
-        <section>
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">3. Advertising & Cookies</h2>
-          <p>We use Google AdSense to serve advertisements on our site. Google uses cookies to serve ads based on your visit to this site and other sites on the Internet.</p>
-          <ul className="list-disc pl-6 space-y-2">
-            <li>Google's use of advertising cookies enables it and its partners to serve ads to users based on their visit to your sites and/or other sites on the Internet.</li>
-            <li>Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Ads Settings</a>.</li>
-          </ul>
-        </section>
+        <div className="prose prose-slate dark:prose-invert max-w-none">
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+              1. Introduction
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+              Auxlify ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website auxlify.online, including any other media form, media channel, mobile website, or mobile application connected or related thereto (collectively, the "Site").
+            </p>
+          </section>
 
-        <section>
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">4. Data Security</h2>
-          <p>Since your files are processed locally, we do not store them. However, we take reasonable measures to protect the integrity of our website and ensure a safe browsing experience for all users.</p>
-        </section>
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+              2. Information We Collect
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+              We collect information that you provide directly to us, such as:
+            </p>
+            <ul className="list-disc list-inside text-slate-600 dark:text-slate-400 space-y-2 mb-4">
+              <li>Contact information (if you contact us via email)</li>
+              <li>Feedback and correspondence you provide</li>
+            </ul>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+              <strong>Note:</strong> Our tools process data locally in your browser. Images and files you upload are not stored on our servers after processing is complete.
+            </p>
+          </section>
 
-        <section>
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">5. Changes to This Policy</h2>
-          <p>We may update our Privacy Policy from time to time. The latest version will always be available on this page.</p>
-        </section>
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+              3. How We Use Your Information
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+              We use the information we collect to:
+            </p>
+            <ul className="list-disc list-inside text-slate-600 dark:text-slate-400 space-y-2">
+              <li>Provide, maintain, and improve our services</li>
+              <li>Respond to your comments and questions</li>
+              <li>Monitor usage patterns and analytics</li>
+              <li>Detect, prevent, and address technical issues</li>
+            </ul>
+          </section>
 
-        <section className="pt-8 border-t border-slate-100 dark:border-slate-800">
-          <p className="text-sm italic">Last updated: March 14, 2026</p>
-        </section>
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+              4. Cookies and Tracking Technologies
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+              We use cookies and similar tracking technologies to track activity on our Site and hold certain information.
+            </p>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+              <strong>Google Analytics:</strong> We use Google Analytics to understand how visitors interact with our Site. Google Analytics collects information such as pages visited, time spent on pages, and referral sources.
+            </p>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+              You can opt-out of Google Analytics by installing the <a href="https://tools.google.com/dlpage/gaoptout" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">Google Analytics Opt-out Browser Add-on</a>.
+            </p>
+          </section>
+
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+              5. Third-Party Services
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+              We may use third-party services that collect and monitor usage data:
+            </p>
+            <ul className="list-disc list-inside text-slate-600 dark:text-slate-400 space-y-2">
+              <li><strong>Google Analytics:</strong> For website analytics</li>
+              <li><strong>Google Fonts:</strong> For typography</li>
+            </ul>
+          </section>
+
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+              6. Data Security
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+              We implement appropriate technical and organizational security measures to protect your information. However, no method of transmission over the Internet or electronic storage is 100% secure, and we cannot guarantee absolute security.
+            </p>
+          </section>
+
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+              7. Your Rights
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+              Depending on your location, you may have certain rights regarding your personal information, including:
+            </p>
+            <ul className="list-disc list-inside text-slate-600 dark:text-slate-400 space-y-2">
+              <li>The right to access your personal data</li>
+              <li>The right to correct inaccurate data</li>
+              <li>The right to delete your personal data</li>
+              <li>The right to object to processing</li>
+            </ul>
+          </section>
+
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+              8. Children&apos;s Privacy
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+              Our Site is not intended for children under 13 years of age, and we do not knowingly collect personal information from children under 13.
+            </p>
+          </section>
+
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+              9. Links to Other Websites
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+              Our Site may contain links to third-party websites. We are not responsible for the privacy practices of these external sites. We encourage you to read the privacy policies of any website you visit.
+            </p>
+          </section>
+
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+              10. Changes to This Policy
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+              We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date at the top.
+            </p>
+          </section>
+
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+              11. Contact Us
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+              If you have any questions about this Privacy Policy, please contact us:
+            </p>
+            <div className="bg-slate-50 dark:bg-slate-900 rounded-xl p-6">
+              <p className="text-slate-700 dark:text-slate-300 font-medium">Auxlify</p>
+              <p className="text-slate-600 dark:text-slate-400">Email: octaacebusiness@gmail.com</p>
+              <p className="text-slate-600 dark:text-slate-400">Website: https://auxlify.online</p>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   );

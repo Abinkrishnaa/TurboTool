@@ -1,8 +1,8 @@
 services:
   - type: docker
-    name: auxkit-backend
+    name: auxlify-backend
     rootDir: backend
     dockerfilePath: Dockerfile
     envVars:
       - key: CORS_ORIGIN
-        value: https://auxkit-frontend.vercel.app
+        value: https://auxlify.online,https://turbo-tool-dun.vercel.app

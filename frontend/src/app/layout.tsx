@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Outfit } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import ClientLayoutManager from "@/components/ClientLayoutManager";
 
@@ -38,14 +39,14 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://auxkit.com"),
+  metadataBase: new URL("https://auxlify.online"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://auxkit.com",
+    url: "https://auxlify.online",
     siteName: "Auxlify",
     title: "Auxlify - Professional Free Online Utilities",
     description: "Fast, privacy-first tools that run directly in your browser.",
@@ -97,27 +98,27 @@ export default function RootLayout({
     "@graph": [
       {
         "@type": "WebSite",
-        "@id": "https://auxkit.com/#website",
-        "url": "https://auxkit.com",
+        "@id": "https://auxlify.online/#website",
+        "url": "https://auxlify.online",
         "name": "Auxlify",
         "description": "Professional, privacy-first web utilities and productivity tools.",
         "publisher": {
-          "@id": "https://auxkit.com/#organization"
+          "@id": "https://auxlify.online/#organization"
         },
         "potentialAction": {
           "@type": "SearchAction",
-          "target": "https://auxkit.com/search?q={search_term_string}",
+          "target": "https://auxlify.online/search?q={search_term_string}",
           "query-input": "required name=search_term_string"
         }
       },
       {
         "@type": "Organization",
-        "@id": "https://auxkit.com/#organization",
+        "@id": "https://auxlify.online/#organization",
         "name": "Auxlify",
-        "url": "https://auxkit.com",
+        "url": "https://auxlify.online",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://auxkit.com/icon.png"
+          "url": "https://auxlify.online/icon.png"
         },
         "contactPoint": {
           "@type": "ContactPoint",
@@ -137,6 +138,20 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        
+        {/* Google Analytics 4 */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-Y3Y4RC1JGM"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-Y3Y4RC1JGM');
+          `}
+        </Script>
       </head>
       <body
         className={`${inter.variable} ${outfit.variable} font-sans antialiased bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 flex flex-col min-h-screen`}

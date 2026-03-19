@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { TOOLS } from '@/constants/tools';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://TurboTool.com';
+  const baseUrl = 'https://auxlify.online';
 
   const toolUrls = TOOLS.map((tool) => {
     // Strip query parameters for clean sitemap URLs
