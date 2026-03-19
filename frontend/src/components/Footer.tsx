@@ -93,7 +93,7 @@ export default function Footer() {
             <Link href="#" className="text-slate-400 hover:text-slate-950 dark:hover:text-white transition-all">
               <Linkedin className="w-4 h-4 fill-current" />
             </Link>
-            <Link href="mailto:octaacebusiness@gmail.com" className="text-slate-400 hover:text-slate-950 dark:hover:text-white transition-all">
+            <Link href="mailto:auxstel@gmail.com" className="text-slate-400 hover:text-slate-950 dark:hover:text-white transition-all">
               <Mail className="w-4 h-4" />
             </Link>
           </div>

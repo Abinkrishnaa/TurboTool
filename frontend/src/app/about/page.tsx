@@ -157,7 +157,7 @@ export default function AboutPage() {
               </p>
               <div className="bg-slate-50 dark:bg-slate-900 rounded-xl p-6">
                 <p className="text-slate-700 dark:text-slate-300 font-medium">Auxlify</p>
-                <p className="text-slate-500 dark:text-slate-400 text-sm">Email: octaacebusiness@gmail.com</p>
+                <p className="text-slate-500 dark:text-slate-400 text-sm">Email: auxstel@gmail.com</p>
                 <p className="text-slate-500 dark:text-slate-400 text-sm">Website: https://auxlify.online</p>
               </div>
             </section>

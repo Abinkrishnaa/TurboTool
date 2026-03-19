@@ -13,12 +13,12 @@ export default function ContactPage() {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
-          <a href="mailto:octaacebusiness@gmail.com" className="group p-8 bg-white dark:bg-slate-900 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-premium hover:border-primary/50 transition-all text-center">
+          <a href="mailto:auxstel@gmail.com" className="group p-8 bg-white dark:bg-slate-900 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-premium hover:border-primary/50 transition-all text-center">
             <div className="w-16 h-16 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
               <Mail className="w-8 h-8" />
             </div>
             <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Email Us</h3>
-            <p className="text-slate-500">octaacebusiness@gmail.com</p>
+            <p className="text-slate-500">auxstel@gmail.com</p>
           </a>
 
           <div className="p-8 bg-white dark:bg-slate-900 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-premium text-center">

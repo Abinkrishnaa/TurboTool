@@ -122,7 +122,7 @@ export default function RootLayout({
         },
         "contactPoint": {
           "@type": "ContactPoint",
-          "email": "octaacebusiness@gmail.com",
+          "email": "auxstel@gmail.com",
           "contactType": "customer support"
         }
       }
