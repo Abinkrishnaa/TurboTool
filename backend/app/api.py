@@ -46,13 +46,13 @@ def get_cors_origins() -> List[str]:
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    print("AuxStrix API started")
+    print("Auxlify API started")
     yield
-    print("AuxStrix API stopped")
+    print("Auxlify API stopped")
 
 
 app = FastAPI(
-    title="AuxStrix API",
+    title="Auxlify API",
     description="Convert PDF to Word, PDF to Images, Word to PDF, and remove image backgrounds",
     version="1.0.0",
     lifespan=lifespan,
@@ -70,7 +70,7 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    return {"message": "AuxStrix API", "status": "running"}
+    return {"message": "Auxlify API", "status": "running"}
 
 
 @app.get("/health")
@@ -355,9 +355,7 @@ async def remove_background(file: UploadFile = File(...)):
         with open(output_path, "rb") as f:
             output_data = f.read()
 
-        output_filename = (
-            f"auxstrix-removed-bg-{int(os.path.getmtime(output_path))}.png"
-        )
+        output_filename = f"auxlify-removed-bg-{int(os.path.getmtime(output_path))}.png"
 
         return StreamingResponse(
             io.BytesIO(output_data),

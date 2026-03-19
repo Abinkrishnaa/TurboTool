@@ -1,4 +1,4 @@
-# AuxStrix - All-in-One Online Tools Platform
+# Auxlify - All-in-One Online Tools Platform
 
 A comprehensive collection of free online tools for images, documents, and productivity. Built with Next.js (frontend) and FastAPI (backend).
 
@@ -296,8 +296,8 @@ npm run build
 
 ```bash
 cd backend
-docker build -t auxstrix-backend .
-docker run -p 8000:8000 auxstrix-backend
+docker build -t auxlify-backend .
+docker run -p 8000:8000 auxlify-backend
 ```
 
 ## Troubleshooting

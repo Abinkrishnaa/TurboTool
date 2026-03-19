@@ -197,7 +197,7 @@ export default function BackgroundRemoverInterface() {
     try {
       const response = await fetch(processedImage);
       const blob = await response.blob();
-      await downloadBlob(blob, `AuxStrix-removed-bg-${Date.now()}.png`);
+      await downloadBlob(blob, `Auxlify-removed-bg-${Date.now()}.png`);
     } catch (error) {
       // Fallback: open in new tab
       window.open(processedImage, '_blank');

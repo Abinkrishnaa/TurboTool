@@ -25,14 +25,14 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "AuxStrix - Professional Free Online Utilities",
-    template: "%s | AuxStrix",
+    default: "Auxlify - Professional Free Online Utilities",
+    template: "%s | Auxlify",
   },
   description: "Fast, privacy-first tools that run directly in your browser. Compress images, format JSON, count words, and more without any data leaving your device.",
   keywords: ["online tools", "privacy first", "free utilities", "image compressor", "json formatter", "developer tools"],
-  authors: [{ name: "AuxStrix Team" }],
-  creator: "AuxStrix",
-  publisher: "AuxStrix",
+  authors: [{ name: "Auxlify Team" }],
+  creator: "Auxlify",
+  publisher: "Auxlify",
   formatDetection: {
     email: false,
     address: false,
@@ -46,26 +46,26 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://auxkit.com",
-    siteName: "AuxStrix",
-    title: "AuxStrix - Professional Free Online Utilities",
+    siteName: "Auxlify",
+    title: "Auxlify - Professional Free Online Utilities",
     description: "Fast, privacy-first tools that run directly in your browser.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "AuxStrix - Professional Free Online Utilities",
+        alt: "Auxlify - Professional Free Online Utilities",
       },
     ],
   },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "AuxStrix",
+    title: "Auxlify",
   },
   twitter: {
     card: "summary_large_image",
-    title: "AuxStrix - Professional Free Online Utilities",
+    title: "Auxlify - Professional Free Online Utilities",
     description: "Fast, privacy-first tools that run directly in your browser.",
     images: ["/og-image.png"],
     creator: "@turbotool",
@@ -99,7 +99,7 @@ export default function RootLayout({
         "@type": "WebSite",
         "@id": "https://auxkit.com/#website",
         "url": "https://auxkit.com",
-        "name": "AuxStrix",
+        "name": "Auxlify",
         "description": "Professional, privacy-first web utilities and productivity tools.",
         "publisher": {
           "@id": "https://auxkit.com/#organization"
@@ -113,7 +113,7 @@ export default function RootLayout({
       {
         "@type": "Organization",
         "@id": "https://auxkit.com/#organization",
-        "name": "AuxStrix",
+        "name": "Auxlify",
         "url": "https://auxkit.com",
         "logo": {
           "@type": "ImageObject",

@@ -82,7 +82,7 @@ export default function Footer() {
               <Logo showText={true} variant="grayscale" />
             </Link>
             <p className="text-[12px] font-medium text-slate-400 dark:text-slate-500 ml-2">
-              © {currentYear} AuxStrix. All rights reserved.
+              © {currentYear} Auxlify. All rights reserved.
             </p>
           </div>
           
