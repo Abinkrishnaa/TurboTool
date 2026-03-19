@@ -24,8 +24,8 @@ export default function PasswordGeneratorPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://TurboTool.com" },
-      { "@type": "ListItem", "position": 2, "name": "Password Generator", "item": "https://TurboTool.com/password-generator" }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://auxlify.online" },
+      { "@type": "ListItem", "position": 2, "name": "Password Generator", "item": "https://auxlify.online/password-generator" }
     ]
   };
 
@@ -201,7 +201,7 @@ export default function PasswordGeneratorPage() {
           title="The Science of Strong Passwords"
           content={[
             "In an age of increasing cyber threats, using 'password123' is no longer an option. Hackers use sophisticated 'brute-force' attacks that can crack simple passwords in seconds. A truly <strong>Secure Password</strong> must be random, long, and complex.",
-            "TurboTools' <strong>Strong Password Generator</strong> uses the cryptographically secure <code>window.crypto</code> API to ensure that every character is chosen with absolute randomness. By combining uppercase letters, numbers, and symbols, you create a password that would take modern supercomputers billions of years to guess.",
+            "Auxlify's <strong>Strong Password Generator</strong> uses the cryptographically secure <code>window.crypto</code> API to ensure that every character is chosen with absolute randomness. By combining uppercase letters, numbers, and symbols, you create a password that would take modern supercomputers billions of years to guess.",
             "Privacy is paramount. Unlike other online generators, we don't store your passwords. Everything is generated on your local machine, ensuring that not even we know what your new secret key is."
           ]}
           benefits={[

@@ -5,7 +5,7 @@ import ToolWorkspace from "@/components/ToolWorkspace";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title: "Remove Background From Image Free Online - AI Powered | TurboTool",
+  title: "Remove Background From Image Free Online - AI Powered | Auxlify",
   description: "Remove image backgrounds instantly for free using AI. Our professional-grade background remover runs 100% in your browser for total privacy. No signup required.",
   keywords: ["remove background", "transparent background", "background remover AI", "free online background remover", "remove bg free"],
   alternates: {
@@ -50,13 +50,13 @@ export default function BackgroundRemoverPage() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://TurboTool.com"
+        "item": "https://auxlify.online"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Background Remover",
-        "item": "https://TurboTool.com/remove-background-from-image"
+        "item": "https://auxlify.online/remove-background-from-image"
       }
     ]
   };
@@ -99,7 +99,7 @@ export default function BackgroundRemoverPage() {
         title="Professional Background Removal for Designers and Creators"
         content={[
           "Images with transparent backgrounds are essential for modern web design, ecommerce, and marketing. Whether you're preparing <strong>product shots for Shopify</strong> or creating <strong>personal headshots</strong>, our AI-powered background remover delivers pixel-perfect results instantly.",
-          "Unlike traditional online tools that upload your data to a server, TurboTools executes the entire removal process <strong>directly on your device</strong>. This means your private photos never leave your browser, providing 100% data security and privacy.",
+          "Unlike traditional online tools that upload your data to a server, Auxlify executes the entire removal process <strong>directly on your device</strong>. This means your private photos never leave your browser, providing 100% data security and privacy.",
           "Our AI model is trained on millions of images to accurately detect complex subjects, including hair, fur, and intricate edges, ensuring a clean cutout every time."
         ]}
         benefits={[
@@ -111,7 +111,7 @@ export default function BackgroundRemoverPage() {
         faqs={[
           {
             question: "Is this background remover free?",
-            answer: "Yes, TurboTools provides unlimited background removal for free. There are no daily limits or watermarks on your downloads."
+            answer: "Yes, Auxlify provides unlimited background removal for free. There are no daily limits or watermarks on your downloads."
           },
           {
             question: "Will my image quality be reduced?",

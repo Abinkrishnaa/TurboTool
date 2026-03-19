@@ -8,7 +8,7 @@ import { Suspense } from "react";
 import PDFToImageClient from "./PDFToImageClient";
 
 export const metadata: Metadata = {
-  title: "PDF to Image Converter - Extract Pages as High-Quality PNG | TurboTool",
+  title: "PDF to Image Converter - Extract Pages as High-Quality PNG | Auxlify",
   description: "Extract high-quality images from any PDF document for free. Professional-grade converter that runs entirely in your browser for maximum privacy.",
   keywords: ["pdf to image", "pdf to png", "extract pages from pdf", "pdf image extractor", "online pdf to image"],
   alternates: {

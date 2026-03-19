@@ -6,7 +6,7 @@ import DashboardLayout from "@/components/DashboardLayout";
 import { Calculator, Calendar, Clock, Baby, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Professional Age Calculator - Calculate Your Exact Age Online | TurboTool",
+  title: "Professional Age Calculator - Calculate Your Exact Age Online | Auxlify",
   description: "Calculate your exact age in years, months, days, hours, and minutes. Free, fast, and secure online age calculator for job applications, visas, and official forms.",
   keywords: ["age calculator", "calculate age from dob", "how old am i", "exact age calculator", "online age calculator", "birthday calculator"],
   alternates: {
@@ -19,8 +19,8 @@ export default function AgeCalculatorPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://TurboTool.com" },
-      { "@type": "ListItem", "position": 2, "name": "Age Calculator", "item": "https://TurboTool.com/age-calculator" }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://auxlify.online" },
+      { "@type": "ListItem", "position": 2, "name": "Age Calculator", "item": "https://auxlify.online/age-calculator" }
     ]
   };
 
@@ -80,7 +80,7 @@ export default function AgeCalculatorPage() {
           content={[
             "Have you ever wondered: <em>'How old am I exactly?'</em> While most people know their age in years, official procedures often require your age down to the precise day. Our <strong>Professional Age Calculator</strong> is designed to solve this complexity by handling the calendar math—including leap years—instantly.",
             "Whether you're filling out a school admission form for your child, applying for a retirement pension, or checking your eligibility for a government visa, having the exact number is non-negotiable. Our tool ensures your documentation is 100% accurate every time.",
-            "Privacy is a core tenet of TurboTools. Your date of birth is sensitive information; that's why our calculator runs entirely <strong>client-side</strong>. We never see, store, or transmit your data. It stays on your device, giving you total peace of mind for you and your family."
+            "Privacy is a core tenet of Auxlify. Your date of birth is sensitive information; that's why our calculator runs entirely <strong>client-side</strong>. We never see, store, or transmit your data. It stays on your device, giving you total peace of mind for you and your family."
           ]}
           benefits={[
             "Years, months, and days breakdown for official documentation.",
@@ -95,7 +95,7 @@ export default function AgeCalculatorPage() {
             },
             {
               question: "Why does my age in days seem different on other calculators?",
-              answer: "Some calculators ignore leap years or specific hour offsets. TurboTools uses the standard Gregorian calendar logic to provide the legally recognized age format used by government agencies."
+              answer: "Some calculators ignore leap years or specific hour offsets. Auxlify uses the standard Gregorian calendar logic to provide the legally recognized age format used by government agencies."
             },
             {
               question: "Can I use this for calculating dates between two specific points?",

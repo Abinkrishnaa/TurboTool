@@ -8,7 +8,7 @@ import { Suspense } from "react";
 import ImageToTextClient from "./ImageToTextClient";
 
 export const metadata: Metadata = {
-  title: "Image to Text Converter - Free Online OCR Tool | TurboTool",
+  title: "Image to Text Converter - Free Online OCR Tool | Auxlify",
   description: "Extract text from images, screenshots, and scanned documents instantly. High-accuracy OCR, 100% private, and browser-based text extraction. No registration required.",
   keywords: ["image to text", "extract text from image", "ocr online", "photo to text converter", "copy text from image", "free ocr tool"],
   alternates: {
@@ -21,8 +21,8 @@ export default function OCRPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://TurboTool.com" },
-      { "@type": "ListItem", "position": 2, "name": "Image to Text Converter", "item": "https://TurboTool.com/image-to-text-converter" }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://auxlify.online" },
+      { "@type": "ListItem", "position": 2, "name": "Image to Text Converter", "item": "https://auxlify.online/image-to-text-converter" }
     ]
   };
 
@@ -83,7 +83,7 @@ export default function OCRPage() {
           title="Transforming Pixels into Readable Text"
           content={[
             "An <strong>Image to Text Converter</strong>, also known as <strong>OCR (Optical Character Recognition)</strong>, is a digital powerhouse that analyzes printed or handwritten characters inside an image and converts them into machine-readable, editable text.",
-            "At TurboTools, we've optimized text extraction using the <strong>Tesseract engine</strong>, integrated directly into your browser. This allows for lightning-fast digitalization of book pages, lecture slides, and physical receipts without the latency or privacy risks of cloud-based OCR services.",
+            "At Auxlify, we've optimized text extraction using the <strong>Tesseract engine</strong>, integrated directly into your browser. This allows for lightning-fast digitalization of book pages, lecture slides, and physical receipts without the latency or privacy risks of cloud-based OCR services.",
             "Privacy is non-negotiable for documents containing sensitive data. Unlike other online converters, our tool processes images in your browser's local sandbox. Your confidential business contracts, medical reports, and personal notes are never seen by us or anyone else."
           ]}
           benefits={[

@@ -29,8 +29,8 @@ export default function ImageConverterPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://TurboTool.com" },
-      { "@type": "ListItem", "position": 2, "name": "Image Converter", "item": "https://TurboTool.com/png-to-jpg-converter" }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://auxlify.online" },
+      { "@type": "ListItem", "position": 2, "name": "Image Converter", "item": "https://auxlify.online/png-to-jpg-converter" }
     ]
   };
 
@@ -227,7 +227,7 @@ export default function ImageConverterPage() {
           },
           {
             question: "Is there any limit to how many files I can convert?",
-            answer: "No, TurboTools is completely unlimited. You can convert as many images as you need without any restrictions."
+            answer: "No, Auxlify is completely unlimited. You can convert as many images as you need without any restrictions."
           }
         ]}
       />

@@ -19,8 +19,8 @@ export default function JsonFormatterPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://TurboTool.com" },
-      { "@type": "ListItem", "position": 2, "name": "JSON Formatter", "item": "https://TurboTool.com/json-formatter" }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://auxlify.online" },
+      { "@type": "ListItem", "position": 2, "name": "JSON Formatter", "item": "https://auxlify.online/json-formatter" }
     ]
   };
 
@@ -180,7 +180,7 @@ export default function JsonFormatterPage() {
           faqs={[
             {
               question: "Does this tool store my JSON data?",
-              answer: "No. Unlike other online formatters, TurboTools processes everything locally in your browser. Your data is never sent to our servers, ensuring total privacy for your API keys and sensitive information."
+              answer: "No. Unlike other online formatters, Auxlify processes everything locally in your browser. Your data is never sent to our servers, ensuring total privacy for your API keys and sensitive information."
             },
             {
               question: "Can I use this tool to minify JSON?",

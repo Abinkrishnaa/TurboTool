@@ -87,7 +87,7 @@ export default function UNIFIED_PDF_PAGE() {
            <div>
               <h2 className="text-3xl font-black text-slate-900 dark:text-white mb-6 tracking-tight">Why Use Our Unified PDF Service?</h2>
               <p className="text-lg text-slate-500 font-medium leading-relaxed mb-8">
-                Most online tools force you to jump between multiple pages or even different websites for simple PDF tasks. TurboTools consolidates these workflows into a single high-performance interface.
+                Most online tools force you to jump between multiple pages or even different websites for simple PDF tasks. Auxlify consolidates these workflows into a single high-performance interface.
               </p>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">

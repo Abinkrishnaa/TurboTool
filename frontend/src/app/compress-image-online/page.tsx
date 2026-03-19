@@ -7,7 +7,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import EducationalContent from "@/components/EducationalContent";
 
 export const metadata: Metadata = {
-  title: "Compress Image Online - Reduce Photo Size Without Quality Loss | TurboTool",
+  title: "Compress Image Online - Reduce Photo Size Without Quality Loss | Auxlify",
   description: "Reduce image size online for free. Support for KB and MB targets. Our secure tool compresses PNG, JPG, and WEBP images entirely on your device for total privacy.",
   keywords: ["compress image", "reduce photo size", "image size reducer", "kb to mb converter", "online photo compressor", "compress jpeg"],
   alternates: {
@@ -48,13 +48,13 @@ export default function CompressorPage() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://TurboTool.com"
+        "item": "https://auxlify.online"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Image Compressor",
-        "item": "https://TurboTool.com/compress-image-online"
+        "item": "https://auxlify.online/compress-image-online"
       }
     ]
   };

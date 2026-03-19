@@ -6,7 +6,7 @@ import DashboardLayout from "@/components/DashboardLayout";
 import { Crop, Maximize, Layout, Share2, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Crop Image Online - Free Photo Cropper & Aspect Ratio Tool | TurboTool",
+  title: "Crop Image Online - Free Photo Cropper & Aspect Ratio Tool | Auxlify",
   description: "Crop your images online for free. Support for Instagram, Square, 16:9, and custom aspect ratios. Professional tools, 100% private, and high-quality exports.",
   keywords: ["crop image online", "free photo cropper", "image resizer", "instagram story cropper", "online image editor", "crop photo"],
   alternates: {
@@ -19,8 +19,8 @@ export default function ImageCropperPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://TurboTool.com" },
-      { "@type": "ListItem", "position": 2, "name": "Image Cropper", "item": "https://TurboTool.com/crop-image-online" }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://auxlify.online" },
+      { "@type": "ListItem", "position": 2, "name": "Image Cropper", "item": "https://auxlify.online/crop-image-online" }
     ]
   };
 
@@ -80,7 +80,7 @@ export default function ImageCropperPage() {
           content={[
             "Standard photo viewers often lack the precision needed for modern digital branding. Whether you're preparing a <strong>YouTube Thumbnail</strong>, an <strong>Instagram Story</strong>, or a <strong>Professional Profile Photo</strong>, having exact control over your aspect ratio is vital for a polished look.",
             "Our <strong>Free Online Photo Cropper</strong> simplifies this by providing one-click presets for every major social platform. No need to memorize pixel dimensions—just select your target (like 1:1 Square or 16:9 Cinematic) and let our tool handle the geometry.",
-            "Visual quality should never be sacrificed. TurboTools uses high-fidelity canvas rendering to ensures that your cropped export maintains the maximum possible resolution from your original file. And since everything stays on your device, your private photos never touch a cloud server."
+            "Visual quality should never be sacrificed. Auxlify uses high-fidelity canvas rendering to ensures that your cropped export maintains the maximum possible resolution from your original file. And since everything stays on your device, your private photos never touch a cloud server."
           ]}
           benefits={[
             "Instant social media formatting: Optimized for IG, FB, TikTok, and Twitter.",

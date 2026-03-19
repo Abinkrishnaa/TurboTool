@@ -42,8 +42,8 @@ function ImageResizerContent() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://TurboTool.com" },
-      { "@type": "ListItem", "position": 2, "name": "Image Resizer", "item": "https://TurboTool.com/resize-image-online" }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://auxlify.online" },
+      { "@type": "ListItem", "position": 2, "name": "Image Resizer", "item": "https://auxlify.online/resize-image-online" }
     ]
   };
 
@@ -133,7 +133,7 @@ function ImageResizerContent() {
   ];
 
   const faqs = [
-    { question: "Is resizing free?", answer: "Yes, TurboTool provides unlimited image resizing at no cost." },
+    { question: "Is resizing free?", answer: "Yes, Auxlify provides unlimited image resizing at no cost." },
     { question: "Will my image lose quality?", answer: "Shrinking an image and then enlarging it may result in loss of clarity. We recommend resizing from high-resolution originals." },
     { question: "Does it work in my browser?", answer: "Yes, everything happens locally using the Canvas API. Your files are never uploaded." },
     { question: "Can I resize for Instagram?", answer: "Absolutely! Use our presets or manual input for 1080x1080 (Post) or 1080x1920 (Story)." }
@@ -280,7 +280,7 @@ function ImageResizerContent() {
           },
           {
             question: "Is there a limit on the number of images I can resize?",
-            answer: "No, TurboTools offers unlimited free image resizing. You can use it as often as you need for your personal or professional projects."
+            answer: "No, Auxlify offers unlimited free image resizing. You can use it as often as you need for your personal or professional projects."
           }
         ]}
       />

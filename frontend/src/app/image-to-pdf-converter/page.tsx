@@ -29,8 +29,8 @@ function UnifiedPdfImageContent() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://TurboTool.com" },
-      { "@type": "ListItem", "position": 2, "name": "Universal PDF Service", "item": "https://TurboTool.com/image-to-pdf-converter" }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://auxlify.online" },
+      { "@type": "ListItem", "position": 2, "name": "Universal PDF Service", "item": "https://auxlify.online/image-to-pdf-converter" }
     ]
   };
 
@@ -124,7 +124,7 @@ function UnifiedPdfImageContent() {
           content={[
             "Managing documents shouldn't require multiple browser tabs. Our <strong>Universal PDF & Image Service</strong> combines powerful conversion tools into a single, high-performance interface. Whether you're turning a collection of photos into a professional PDF portfolio or extracting high-resolution assets from a presentation, we have you covered.",
             "Our <strong>Images to PDF</strong> converter supports JPG, PNG, and WebP formats, allowing you to merge dozens of files with zero quality loss. On the flip side, our <strong>PDF to Images</strong> tool uses advanced rendering to extract every page as a crisp image, perfect for sharing on social media or in messages.",
-            "Security is non-negotiable. Traditional PDF converters often upload your sensitive documents to their servers. TurboTools processes everything <strong>inside your browser</strong>. Your bank statements, personal photos, and official forms never leave your device."
+            "Security is non-negotiable. Traditional PDF converters often upload your sensitive documents to their servers. Auxlify processes everything <strong>inside your browser</strong>. Your bank statements, personal photos, and official forms never leave your device."
           ]}
           benefits={[
             "Dual-mode conversion: Toggle between Image-to-PDF and PDF-to-Image instantly.",

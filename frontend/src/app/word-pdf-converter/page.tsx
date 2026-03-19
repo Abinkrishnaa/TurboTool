@@ -37,8 +37,8 @@ function WordPdfConverterContent() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://TurboTool.com" },
-      { "@type": "ListItem", "position": 2, "name": "Word & PDF Professional", "item": "https://TurboTool.com/word-pdf-converter" }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://auxlify.online" },
+      { "@type": "ListItem", "position": 2, "name": "Word & PDF Professional", "item": "https://auxlify.online/word-pdf-converter" }
     ]
   };
 
@@ -147,7 +147,7 @@ function WordPdfConverterContent() {
           title="Professional Document Conversion Without Compromise"
           content={[
             "Converting between Word and PDF is one of the most common tasks for professionals, students, and businesses. However, many online tools sacrifice document formatting or, worse, compromise your data privacy by uploading files to a cloud server.",
-            "TurboTools solves this with our <strong>Professional Word & PDF Professional</strong>. Our engine runs 100% client-side, meaning your sensitive documents—legal contracts, resumes, or financial reports—are processed entirely within your browser. We never see your content, and it's never stored on any server.",
+            "Auxlify solves this with our <strong>Professional Word & PDF Professional</strong>. Our engine runs 100% client-side, meaning your sensitive documents—legal contracts, resumes, or financial reports—are processed entirely within your browser. We never see your content, and it's never stored on any server.",
             "Our <strong>PDF to Word</strong> converter uses advanced structural analysis to reconstruct editable DOCX files that look exactly like the original PDF. Similarly, our <strong>Word to PDF</strong> tool generates high-fidelity documents that are ready for distribution, printing, or archiving."
           ]}
           benefits={[

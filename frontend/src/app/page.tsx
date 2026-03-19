@@ -171,7 +171,7 @@ export default function Home() {
         )}
       </section>
 
-      {/* Why Choose TurboTool Section */}
+      {/* Why Choose Auxlify Section */}
       <section id="features" className="container mx-auto px-6 max-w-7xl py-48 border-t border-slate-100 dark:border-slate-800 scroll-mt-24">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-24">
           {/* Section Header */}
@@ -199,7 +199,7 @@ export default function Home() {
             <FeatureRow 
               icon={<Rocket className="w-8 h-8" />}
               title="Warp Speed Execution"
-              description="Built with high-performance Web APIs, TurboTool delivers instant results without the latency of cloud-based processing."
+              description="Built with high-performance Web APIs, Auxlify delivers instant results without the latency of cloud-based processing."
             />
             <FeatureRow 
               icon={<Clock className="w-8 h-8" />}
@@ -223,7 +223,7 @@ export default function Home() {
 
           <div className="space-y-2">
             <FAQItem
-              question="Is TurboTool really free?"
+              question="Is Auxlify really free?"
               answer="Yes, 100% free. We don't charge for any tools, and there are no hidden fees or 'pro' versions. Our goal is to provide high-quality utilities for everyone without gatekeeping."
             />
             <FAQItem

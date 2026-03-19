@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'AI Text Humanizer – Convert AI Text to Natural Human Writing Free',
     description: 'Rewrite AI generated text into natural human writing instantly. Free AI text humanizer tool that improves readability and removes robotic language.',
-    url: 'https://TurboTool.com/ai-text-humanizer',
+    url: 'https://auxlify.online/ai-text-humanizer',
     type: 'website',
   },
   alternates: {
-    canonical: 'https://TurboTool.com/ai-text-humanizer',
+    canonical: 'https://auxlify.online/ai-text-humanizer',
   }
 };
 

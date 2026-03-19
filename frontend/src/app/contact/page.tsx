@@ -9,7 +9,7 @@ export default function ContactPage() {
         </h1>
         
         <p className="text-xl text-slate-500 dark:text-slate-400 mb-16 leading-relaxed text-center max-w-2xl mx-auto">
-          Have a question, feedback, or a feature request? We'd love to hear from you. We're always looking to improve TurboTool.
+          Have a question, feedback, or a feature request? We'd love to hear from you. We're always looking to improve Auxlify.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
@@ -26,7 +26,7 @@ export default function ContactPage() {
               <Twitter className="w-8 h-8" />
             </div>
             <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Social Media</h3>
-            <p className="text-slate-500">DM us @TurboToolOffline</p>
+            <p className="text-slate-500">DM us @AuxlifyOnline</p>
           </div>
         </div>
 

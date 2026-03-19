@@ -2,8 +2,8 @@ import { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'TurboTools - Pro Web Utilities',
-    short_name: 'TurboTools',
+    name: 'Auxlify - Pro Web Utilities',
+    short_name: 'Auxlify',
     description: 'Fast, privacy-first tools that run directly in your browser. Compress images, remove backgrounds, and more.',
     start_url: '/',
     display: 'standalone',

@@ -6,7 +6,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import EducationalContent from "@/components/EducationalContent";
 
 export const metadata: Metadata = {
-  title: "YouTube Thumbnail Downloader - Download HD & 4K Thumbnails | TurboTool",
+  title: "YouTube Thumbnail Downloader - Download HD & 4K Thumbnails | Auxlify",
   description: "Get high-quality YouTube thumbnails in one click. Download 4K, 1080p, and HD thumbnails for any video for free. Safe, fast, and secure.",
   keywords: ["youtube thumbnail downloader", "download youtube thumbnail", "get youtube thumbnail", "yt thumbnail hd", "4k youtube thumbnail", "youtube image downloader"],
   alternates: {
@@ -43,8 +43,8 @@ export default function YoutubeDownloaderPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://TurboTool.com" },
-      { "@type": "ListItem", "position": 2, "name": "YouTube Thumbnail Downloader", "item": "https://TurboTool.com/youtube-thumbnail-downloader" }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://auxlify.online" },
+      { "@type": "ListItem", "position": 2, "name": "YouTube Thumbnail Downloader", "item": "https://auxlify.online/youtube-thumbnail-downloader" }
     ]
   };
 

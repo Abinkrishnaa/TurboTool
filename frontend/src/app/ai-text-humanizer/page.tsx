@@ -125,8 +125,8 @@ function AIHumanizerContent() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://TurboTool.com" },
-      { "@type": "ListItem", "position": 2, "name": "AI Text Humanizer", "item": "https://TurboTool.com/ai-text-humanizer" }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://auxlify.online" },
+      { "@type": "ListItem", "position": 2, "name": "AI Text Humanizer", "item": "https://auxlify.online/ai-text-humanizer" }
     ]
   };
 
@@ -388,7 +388,7 @@ function AIHumanizerContent() {
             "As AI writing tools like ChatGPT and Claude become more common, the digital landscape is increasingly filled with text that feels generic, predictable, and robotic. Search engines and readers alike are becoming more adept at spotting AI patterns, which often leads to lower engagement and reduced trust. But what if you could have the speed of AI with the voice of a human?",
             "Our <strong>AI Text Humanizer</strong> is designed to bridge this gap. It doesn't just change a few synonyms; it restructures sentences, removes overused transition words (like 'moreover' or 'furthermore'), and injects stylistic variety that mimics natural human thought patterns. Whether you're working on a blog post, an academic essay, or a business email, this tool helps your writing connect more effectively.",
             "Why does AI sound robotic? It's often due to <strong>text entropy</strong>—humans tend to vary their sentence lengths and use unexpected phrasing, whereas AI models optimize for mathematical probability. By increasing the 'burstiness' and complexity of your text, our humanizer makes it indistinguishable from professional manual writing.",
-            "Privacy is a core pillar of TurboTools. Many online humanizers require you to upload your content to their cloud, where it can be stored or used to train future models. Our tool runs <strong>entirely in your browser memory</strong>. Your ideas, drafts, and sensitive information are never seen by any server."
+            "Privacy is a core pillar of Auxlify. Many online humanizers require you to upload your content to their cloud, where it can be stored or used to train future models. Our tool runs <strong>entirely in your browser memory</strong>. Your ideas, drafts, and sensitive information are never seen by any server."
           ]}
           benefits={[
             "Instantly remove robotic language patterns and generic AI openers.",
@@ -399,7 +399,7 @@ function AIHumanizerContent() {
           faqs={[
             {
               question: "Is this AI text humanizer free?",
-              answer: "Yes, TurboTools provides this service completely free of charge with no hidden costs or word-count subscriptions."
+              answer: "Yes, Auxlify provides this service completely free of charge with no hidden costs or word-count subscriptions."
             },
             {
               question: "Will the meaning of my text change during humanization?",

@@ -1,6 +1,6 @@
 "use client";
 
-const DB_NAME = "TurboToolDB";
+const DB_NAME = "AuxlifyDB";
 const STORE_NAME = "PendingFiles";
 const DB_VERSION = 2;
 
